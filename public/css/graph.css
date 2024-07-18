@@ -1,0 +1,213 @@
+div#chart-container {
+    width: calc(100% - 360px);
+    height: 100%;
+    float: left;
+    padding: 50px 30px;
+    background: white;
+}
+
+div[config] {
+    position: absolute!important;
+    right: 0;
+    top: -60px;
+    width: 360px;
+    height: 60px;/*calc(100% + 60px);*/
+    background: #f6f6f6;
+
+}
+
+[main] {
+    padding: 0!important;
+    height: 100%;
+}
+
+div[config] .button.apply {
+    width: calc(100% - 40px);
+    margin: 20px;
+    display: none;
+}
+
+div[config] .ui.tab {
+    padding: 5px 20px;
+}
+
+.config-title .field.text {
+    width: calc(100% - 75px);
+}
+.config-title .field.color {
+    width: 75px;
+}
+.field.color input {
+    cursor: pointer;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;    
+}
+[chart-item] {
+    position: relative;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-bottom-width: 0;
+    padding: 8px;
+    display: block;
+    cursor: pointer;
+    margin-bottom: 0;
+}
+[items-container]>div:first-child {
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+}
+[items-container]>div:last-child {
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-bottom-width: 1px!important;
+}
+[chart-item] [remove-item] {
+    right: -4px;
+    top: -1px;
+    background: white;
+    width: 16px;
+    height: 16px;
+    border-radius: 100px;
+    color: red;
+    z-index: 1;
+}
+[chart-item]:hover [remove-item] {
+	opacity: 1;
+}
+
+[add-item] {
+    position: absolute;
+    right: 17px;
+    top: -46px;
+    z-index: 1;
+}
+[chart-item]:active {
+    background: #f0f0f0;
+}
+[chart-item][selected] {
+    background: lightyellow;
+    font-weight: bold;
+}
+[items-container] {
+    max-height: calc(100vh - 555px);
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+[items-container] .ui-sortable-placeholder {
+    background: #d0d0d0;
+    border: 1px solid #d0d0d0;
+    border-bottom-width: 0;
+    padding: 8px;
+    display: block;
+    margin-bottom: 0;
+    visibility: visible!important;
+}
+
+[chart-item] [item-color] {
+    width: 13px;
+    height: 13px;
+    display: inline-block;
+    margin-right: 5px;
+    margin-bottom: -2px;
+    border: 1px solid #d0d0d0;
+}
+
+[btn-config-exp] {
+    position: absolute;
+    right: 17px;
+    margin-top: -18px;
+}
+
+.ui.secondary.pointing.menu {
+    background: #f0f0f0;
+    height: 60px;
+}
+
+.ui.secondary.pointing.menu .item {
+    height: 55px;
+}
+
+.field.color>input {
+    padding: .67857143em 0!important;
+} 
+
+.select-time-range-unit {
+    width: 88px!important;
+    border-radius: 0 4px 4px 0!important;
+    border-left: 0!important;
+    height: 35px;
+}
+
+.box-time-range {
+    width: 85px!important;
+    float: left;
+}
+
+.box-time-range input {
+    border-radius: 4px 0 0 4px!important;
+    height: 35px;
+    padding: 5px!important;
+    text-align: right;
+}
+
+#filter-chart .ui.dropdown {
+    min-width: 200px;
+}
+
+[name="item-expression"] {
+    height: 56px!important;
+    resize: none!important;
+}
+
+.ui.range .inner .track-fill {
+    background: #c8c8c8!important;
+}
+
+[btn-show-chart-settings] {
+    position: absolute;
+    right: 360px;
+    z-index: 1;
+    width: 20px;
+    height: 40px;
+    text-align: center;
+    cursor: pointer;
+    padding-top: 11px;
+    color: #666666;
+    cursor: pointer;
+}
+[btn-show-chart-settings]:hover {
+    background: #f6f6f6;
+}
+[btn-show-chart-settings]:before {
+    content: '\37';
+    font: normal normal normal 12px Icons;	
+}
+[main][hide-setting] [btn-show-chart-settings] {
+    right: 1px;    
+}
+[main][hide-setting] [btn-show-chart-settings]:before {
+    content: '\36';
+}
+
+div[config] .tab.segment {
+    top: 60px;
+    background: #f6f6f6;
+    border-left: 1px solid #e0e0e0;
+    padding: 20px;
+    height: calc(100vh - 108px);
+}
+div[config] .chart-config {
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+}
+
+[main][hide-setting] #chart-container {
+    width: 100%;
+}
+[main][hide-setting] div[config] .tab.segment {
+    left: 100%;
+}
+

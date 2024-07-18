@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/utils.js"></script>
+	<script src="js/upload.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body onload="init()">
+    <div data-role="page">
+        <div data-role="header" data-position="fixed">
+            <h1>DATA CAPTURE</h1>
+        </div>
+		
+		<img class="logo">
+		
+		<div class="top_menu" onclick="click_menu(this)">
+			<div class="menu_item" id="item1"></div>
+			<div class="menu_item" id="item2"></div>
+			<div class="menu_item" id="item3"></div>
+		</div>
+        <div data-role="main" class="ui-content">
+		<h3>SETTINGS</h3>
+			Energy Builder server address <input type="text" data-inline="true" id="txtServer">
+			<br><br><br>
+			<a href="#" class="ui-btn" onclick="saveSettings();">SAVE</a>
+			<a href="#" class="ui-btn" onclick="window.history.back();">BACK</a>
+        </div>
+        <div data-role="footer" class="footer">
+            <h1>@Copyright: --------</h1>
+        </div>
+    </div>
+<script>
+function saveSettings(){
+	writeParameter('server',$('#txtServer').val());
+	alert($('#txtServer').val());
+}
+</script>
+</body>
+</html>

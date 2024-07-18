@@ -1,0 +1,814 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-06-22T14:24:52 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="FLA" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryNewPage="true" isSummaryWithPageHeaderAndFooter="true" uuid="3f3c548f-0762-4f02-8216-17f4b60481e5">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Dana Petroleum DEV"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<queryString>
+		<![CDATA[select 
+trunc(al.occur_date),
+DECODE(al.cost_INT_CTR_ID, 7 , 'Harris' , 8, 'Barra') as Field,
+SUM( CASE   WHEN     AL.ALLOC_TYPE = 1 AND AL.FLOW_PHASE = 1     THEN      al.EU_DATA_NET_VOL    ELSE      0 END)     as OIL_Prod_Sm3,
+SUM( CASE   WHEN     AL.ALLOC_TYPE = 1 AND AL.FLOW_PHASE = 1     THEN      al.EU_DATA_NET_MASS    ELSE      0 END)     as OIL_Prod_ton,
+SUM( CASE   WHEN     AL.ALLOC_TYPE = 12 AND AL.FLOW_PHASE = 1     THEN      al.EU_DATA_NET_VOL    ELSE      0 END)     as Export_Prod_Sm3,
+SUM( CASE   WHEN     AL.ALLOC_TYPE = 12 AND AL.FLOW_PHASE = 1     THEN      al.EU_DATA_NET_MASS    ELSE      0 END)     as Export_Prod_ton,
+SUM( CASE   WHEN     AL.ALLOC_TYPE = 1 AND AL.FLOW_PHASE = 3     THEN      al.EU_DATA_NET_VOL    ELSE      0 END)     as WAT_Prod_Sm3,
+SUM( CASE   WHEN     AL.ALLOC_TYPE = 1 AND AL.FLOW_PHASE = 3     THEN      al.EU_DATA_NET_MASS    ELSE      0 END)     as WAT_Prod_ton,
+SUM( CASE   WHEN     AL.ALLOC_TYPE = 2 AND AL.FLOW_PHASE = 3     THEN      al.EU_DATA_NET_VOL    ELSE      0 END)     as WAT_INJ_Sm3,
+SUM( CASE   WHEN     AL.ALLOC_TYPE = 2 AND AL.FLOW_PHASE = 3     THEN      al.EU_DATA_NET_MASS    ELSE      0 END)     as WAT_INJ_ton,
+SUM( CASE   WHEN     AL.ALLOC_TYPE = 21 AND AL.FLOW_PHASE = 3     THEN      al.EU_DATA_NET_VOL    ELSE      0 END)     as WAT_OVB_Sm3,
+SUM( CASE   WHEN     AL.ALLOC_TYPE = 21 AND AL.FLOW_PHASE = 3     THEN      al.EU_DATA_NET_MASS    ELSE      0 END)     as WAT_OVB_ton,
+SUM( CASE   WHEN     AL.ALLOC_TYPE = 22 AND AL.FLOW_PHASE = 3     THEN      al.EU_DATA_NET_VOL    ELSE      0 END)     as WAT_OVB_SLPS_Sm3,
+SUM( CASE   WHEN     AL.ALLOC_TYPE = 22 AND AL.FLOW_PHASE = 3     THEN      al.EU_DATA_NET_MASS    ELSE      0 END)     as WAT_OCB_SLPS_ton,
+
+(select min(uo.MULTIPLY_BY) from ENERGY_BUILDER.UOM_CONVERSION uo where uo.ID=440) as KSM3toBBL
+
+
+
+
+from 
+energy_builder.energy_unit_co_ent_data_alloc al 
+
+where 
+ al.flow_phase<>2 -- anything but gas!
+
+
+
+GROUP BY
+al.occur_date,
+al.cost_INT_CTR_ID
+
+
+
+
+ORDER BY
+al.cost_INT_CTR_ID,
+al.occur_date
+
+
+]]>
+	</queryString>
+	<field name="TRUNC(AL.OCCUR_DATE)" class="java.sql.Timestamp"/>
+	<field name="FIELD" class="java.lang.String"/>
+	<field name="OIL_PROD_SM3" class="java.lang.Double"/>
+	<field name="OIL_PROD_TON" class="java.lang.Double"/>
+	<field name="EXPORT_PROD_SM3" class="java.lang.Double"/>
+	<field name="EXPORT_PROD_TON" class="java.lang.Double"/>
+	<field name="WAT_PROD_SM3" class="java.lang.Double"/>
+	<field name="WAT_PROD_TON" class="java.lang.Double"/>
+	<field name="WAT_INJ_SM3" class="java.lang.Double"/>
+	<field name="WAT_INJ_TON" class="java.lang.Double"/>
+	<field name="WAT_OVB_SM3" class="java.lang.Double"/>
+	<field name="WAT_OVB_TON" class="java.lang.Double"/>
+	<field name="WAT_OVB_SLPS_SM3" class="java.lang.Double"/>
+	<field name="WAT_OCB_SLPS_TON" class="java.lang.Double"/>
+	<field name="KSM3TOBBL" class="java.lang.Double"/>
+	<variable name="F_PO" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{OIL_PROD_SM3}]]></variableExpression>
+	</variable>
+	<variable name="F_EO" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{EXPORT_PROD_SM3}]]></variableExpression>
+	</variable>
+	<variable name="F_POT" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{OIL_PROD_TON}]]></variableExpression>
+	</variable>
+	<variable name="F_EOT" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{EXPORT_PROD_TON}]]></variableExpression>
+	</variable>
+	<variable name="F_PW" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{WAT_PROD_SM3}]]></variableExpression>
+	</variable>
+	<variable name="F_PWT" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{WAT_PROD_TON}]]></variableExpression>
+	</variable>
+	<variable name="F_WO" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{WAT_OVB_SM3}]]></variableExpression>
+	</variable>
+	<variable name="F_WOT" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{WAT_OVB_TON}]]></variableExpression>
+	</variable>
+	<variable name="F_CWO" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{WAT_OVB_SLPS_SM3}]]></variableExpression>
+	</variable>
+	<variable name="F_CWOT" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{WAT_OCB_SLPS_TON}]]></variableExpression>
+	</variable>
+	<variable name="F_IW" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{WAT_INJ_SM3}]]></variableExpression>
+	</variable>
+	<variable name="F_IWT" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{WAT_INJ_TON}]]></variableExpression>
+	</variable>
+	<group name="Field" keepTogether="true">
+		<groupExpression><![CDATA[$F{FIELD}]]></groupExpression>
+		<groupHeader>
+			<band height="59">
+				<textField pattern="#,##0.#">
+					<reportElement x="80" y="39" width="120" height="10" uuid="a6446e26-7585-4145-9c2b-f105abc54432"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Produced Oil"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="80" y="49" width="40" height="10" uuid="726a9b87-7f22-4466-b72a-1c293f6f499b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Sm3"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="120" y="49" width="40" height="10" uuid="02519819-46b8-42ba-8fd6-20965d1614c6"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["BBLS"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="160" y="49" width="40" height="10" uuid="b9aef222-8bb3-4c4c-b259-5b61af409512"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Tonnes"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="200" y="39" width="120" height="10" uuid="eb3676ed-6427-41d6-a183-78542c95cba6"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Exported Oil"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="200" y="49" width="40" height="10" uuid="65a800ce-af33-453f-b239-2899cec6e501"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Sm3"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="240" y="49" width="40" height="10" uuid="925e3bbe-c436-43a6-9421-d8b0eb1d1f74"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["BBLS"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="280" y="49" width="40" height="10" uuid="05fa30a2-48f2-4aed-a732-09977e376383"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Tonnes"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="320" y="39" width="120" height="10" uuid="d5701280-8ef1-4167-89be-fbf1c6878936"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Produced Water"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="320" y="49" width="40" height="10" uuid="cf750c97-a640-4389-9304-1d225c1e0a1e"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Sm3"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="360" y="49" width="40" height="10" uuid="163858b7-409b-4481-92e1-883ad44de15f"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["BBLS"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="400" y="49" width="40" height="10" uuid="0c363da9-8151-4e77-9e75-47b797c3e4ff"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Tonnes"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="440" y="39" width="120" height="10" uuid="7b3e0862-3365-4a9b-9a84-9394a185e794"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Water Overboard"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="440" y="49" width="40" height="10" uuid="b06d00e4-e914-42a3-98d1-fc8ca00e6e6c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Sm3"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="480" y="49" width="40" height="10" uuid="0c75e0a8-7879-406e-b781-1e5dc212a7d3"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["BBLS"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="520" y="49" width="40" height="10" uuid="2b381858-b72e-488e-b900-239a63071d15"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Tonnes"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="560" y="39" width="120" height="10" uuid="66db4f34-2f35-4d03-832c-71bf05aab236"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Clean Water Overboard Slop Tanks"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="560" y="49" width="40" height="10" uuid="5e6d68b0-165f-4226-9d7a-fcdf52fb2260"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Sm3"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="600" y="49" width="40" height="10" uuid="a386b5b2-e3f0-4e0d-bd09-636ef5dad7f6"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["BBLS"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="640" y="49" width="40" height="10" uuid="38a84fa9-d4b1-4b50-b836-ec77fc806f45"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Tonnes"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="680" y="39" width="120" height="10" uuid="6b561654-ba4c-4364-af73-3f1fe7410387"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Injected Water"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="680" y="49" width="40" height="10" uuid="c892749d-e6de-4d0a-9159-749b7738b762"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Sm3"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="720" y="49" width="40" height="10" uuid="ad6351df-8be8-4a5e-8949-9f369650c599"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["BBLS"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="760" y="49" width="40" height="10" uuid="12b1c61c-5701-4711-a7b0-9f7b0d7e4214"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true" isItalic="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Tonnes"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="640" y="0" width="40" height="10" uuid="7dfa6d71-3d2b-4a1f-96e7-0443549d34b4"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Field:"]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="680" y="0" width="120" height="10" uuid="9a457584-cf1c-4afc-8d18-3bf6e8b3a56b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{FIELD}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<textField pattern="#,##0.#">
+					<reportElement x="80" y="0" width="40" height="10" uuid="45ba147c-b2de-4a95-9318-b5dc9bd47fe2"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{F_PO}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="120" y="0" width="40" height="10" uuid="ceede822-5fc0-4c6d-99cf-8397d23b4920"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{F_PO}*$F{KSM3TOBBL}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="160" y="0" width="40" height="10" uuid="c225e8b2-6409-4454-9db6-43531a85d38b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{F_POT}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="200" y="0" width="40" height="10" uuid="319babaf-be3f-4de8-a1df-4dc1f4c1a791"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{F_EO}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="240" y="0" width="40" height="10" uuid="09b44f07-07b4-4c72-b131-e9b2760ed355"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{F_EO}*$F{KSM3TOBBL}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="280" y="0" width="40" height="10" uuid="6bd9444b-b573-42f2-bcc6-58dd0a4cc42d"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{F_EOT}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="320" y="0" width="40" height="10" uuid="aea45f64-412d-4789-b923-267585b4cc28"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{F_PW}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="360" y="0" width="40" height="10" uuid="18494b58-b37d-4a24-9b2b-2dc3039041e0"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{F_PW}*$F{KSM3TOBBL}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="400" y="0" width="40" height="10" uuid="cf4a028a-9509-431a-af81-0573cb2e3f0e"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{F_PWT}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="440" y="0" width="40" height="10" uuid="23a1b306-b4d9-4886-a461-351007204d67"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{F_WO}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="480" y="0" width="40" height="10" uuid="d3bce49b-9da0-411b-a1aa-775346520d6c"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{F_WO}*$F{KSM3TOBBL}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="520" y="0" width="40" height="10" uuid="5b2e8026-5edb-421e-a586-fca57bdc3d73"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{F_WOT}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="560" y="0" width="40" height="10" uuid="609a4b63-4684-4849-ab6f-3ecde3f78d19"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{F_CWO}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="600" y="0" width="40" height="10" uuid="c6631949-a8e6-4066-b309-3e668ae313de"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{F_CWO}*$F{KSM3TOBBL}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="640" y="0" width="40" height="10" uuid="e67236e5-6b20-4a04-86ab-7f31c6d9872f"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{F_CWOT}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="680" y="0" width="40" height="10" uuid="1855ec8d-517c-4897-bfb2-6f01c43244c8"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{F_IW}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="720" y="0" width="40" height="10" uuid="ef95cec4-510b-49fb-82d9-bcc1af3f2d92"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{F_IW}*$F{KSM3TOBBL}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="760" y="0" width="40" height="10" uuid="6fb7f051-9304-4961-9c0d-e92a06591165"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{F_IWT}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.#">
+					<reportElement x="0" y="0" width="80" height="10" uuid="fd3f7b64-0944-4fcb-85a1-c13e5311224b"/>
+					<box>
+						<pen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font size="7" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Total"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="10" splitType="Stretch">
+			<textField pattern="MMM d, yyyy">
+				<reportElement x="0" y="0" width="80" height="10" uuid="e5a5adb9-230e-4a0a-93fd-2bb2580641ea"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TRUNC(AL.OCCUR_DATE)}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.#">
+				<reportElement x="80" y="0" width="40" height="10" uuid="9fbb9da1-4bc7-45c2-b3c5-3dd6b1a40df9"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OIL_PROD_SM3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.#">
+				<reportElement x="120" y="0" width="40" height="10" uuid="db1e175d-753a-4dfb-9a65-96248076f3c4"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OIL_PROD_SM3}*$F{KSM3TOBBL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.#">
+				<reportElement x="160" y="0" width="40" height="10" uuid="cb79f732-8b69-4552-a24d-c8580ecc4bb0"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OIL_PROD_TON}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.#">
+				<reportElement x="200" y="0" width="40" height="10" uuid="76e49835-f135-4b44-9c1c-b0d66a6fa6f2"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EXPORT_PROD_SM3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.#">
+				<reportElement x="240" y="0" width="40" height="10" uuid="563c71b7-8f0c-4e4a-b2b0-8671b6e3278a"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EXPORT_PROD_SM3}*$F{KSM3TOBBL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.#">
+				<reportElement x="280" y="0" width="40" height="10" uuid="740abc9f-08a7-48c3-8fa0-4f9fd6815d26"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EXPORT_PROD_TON}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.#">
+				<reportElement x="320" y="0" width="40" height="10" uuid="00c4855d-e121-45b3-98ed-731893a79004"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{WAT_PROD_SM3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.#">
+				<reportElement x="360" y="0" width="40" height="10" uuid="dc4f57e1-2295-4e22-85d0-9bec482893c1"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{WAT_PROD_SM3}*$F{KSM3TOBBL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.#">
+				<reportElement x="400" y="0" width="40" height="10" uuid="3cfb9d6d-3cf7-47f3-8583-e716ad7e305d"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{WAT_PROD_TON}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.#">
+				<reportElement x="440" y="0" width="40" height="10" uuid="b13ccef0-b524-416b-9bbb-f7094b2d196f"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{WAT_OVB_SM3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.#">
+				<reportElement x="480" y="0" width="40" height="10" uuid="70ff6ab8-4b4d-4619-a134-9ad7e958b59b"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{WAT_OVB_SM3}*$F{KSM3TOBBL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.#">
+				<reportElement x="520" y="0" width="40" height="10" uuid="83732355-454d-4281-bbe8-7249b8de7c24"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{WAT_OVB_TON}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.#">
+				<reportElement x="560" y="0" width="40" height="10" uuid="1e54b22c-0985-49be-acac-292f9e0169e2"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{WAT_OVB_SLPS_SM3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.#">
+				<reportElement x="600" y="0" width="40" height="10" uuid="c76f26e9-1c2c-45d1-a20e-96cb5029066e"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{WAT_OVB_SLPS_SM3}*$F{KSM3TOBBL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.#">
+				<reportElement x="640" y="0" width="40" height="10" uuid="c17701c1-e513-4406-bad1-48c3501f0fc5"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{WAT_OCB_SLPS_TON}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.#">
+				<reportElement x="680" y="0" width="40" height="10" uuid="97c60164-ca43-45e4-9f9a-6c668df7d060"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{WAT_INJ_SM3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.#">
+				<reportElement x="720" y="0" width="40" height="10" uuid="c71f6800-f4be-47f1-832a-b56955a24daf"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{WAT_INJ_SM3}*$F{KSM3TOBBL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.#">
+				<reportElement x="760" y="0" width="40" height="10" uuid="0cd5f5aa-71b0-4a98-96b8-7261f7a1d4c5"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{WAT_INJ_TON}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="460" splitType="Stretch">
+			<stackedAreaChart>
+				<chart evaluationTime="Report">
+					<reportElement x="0" y="0" width="800" height="460" uuid="e0f10974-b512-4b4a-86a8-695be9f33137"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{FIELD}]]></seriesExpression>
+						<categoryExpression><![CDATA[DATEFORMAT($F{TRUNC(AL.OCCUR_DATE)},"dd MMM yyyy")]]></categoryExpression>
+						<valueExpression><![CDATA[$F{OIL_PROD_SM3}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<areaPlot>
+					<plot labelRotation="90.0"/>
+					<categoryAxisFormat labelRotation="90.0">
+						<axisFormat tickLabelMask="">
+							<labelFont>
+								<font size="8"/>
+							</labelFont>
+							<tickLabelFont>
+								<font size="8"/>
+							</tickLabelFont>
+						</axisFormat>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat>
+							<labelFont>
+								<font size="8"/>
+							</labelFont>
+						</axisFormat>
+					</valueAxisFormat>
+				</areaPlot>
+			</stackedAreaChart>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,37 @@
+.footer {
+	width: 100%;
+	bottom: 0;
+	position: fixed;
+	display:none;
+}
+
+div .menu_item {
+    width: 25px;
+    height: 2px;
+    background-color: #eee;
+    margin: 6px 0;
+}
+
+div .top_menu {
+	position:fixed;
+	top: 6px;
+	right: 12px;
+    display: inline-block;
+    cursor: pointer;
+	z-index: 1000;
+}
+
+div .logo {
+	position:fixed;
+	top: 6px;
+	left: 12px;
+    display: inline-block;
+	content: url("../image/eb2.png");
+	height: 32px;
+	z-index: 1000;
+}
+
+.clickable{
+	 color:rgb(0,130,185);
+	 cursor: pointer;
+}

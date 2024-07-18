@@ -1,0 +1,382 @@
+<mxEditor defaultGroup="group" defaultEdge="connector">
+<!-- 
+	The following line is used to dynamically add a configuration hook for various backends.
+	The hook must have an ASP.NET extension because IIS does not handle any other extensions.
+	In the Dotnet and Java server examples, this hook is implemented so that it returns the
+	required configuration for using a backend, namely, the diagrameditor-backend.xml 
+	in the java and dotnet directories, respectively.
+ -->
+<!--	<include name="/Config.ashx"/> -->
+	<include name="config/editor-commons-workflow.xml?4"/>
+	<add as="onInit"><![CDATA[
+		function ()
+		{
+			onInit(this);
+		}
+	]]></add>
+	<ui>
+		<add as="graph" element="graph"/>
+		<add as="status" element="status"/>
+		<add as="toolbar" element="toolbar"/>
+	</ui>
+	<Array as="templates">
+		<add as="group">
+			<Group label="" href="">
+				<mxCell vertex="1" style="group" connectable="0"/>
+			</Group>
+		</add>
+		<add as="connector">
+			<Connector label="" href="">
+				<mxCell edge="1">
+					<mxGeometry as="geometry" relative="1"/>
+				</mxCell>
+			</Connector>
+		</add>
+		<add as="container">
+			<Container label="Container">
+				<mxCell vertex="1" style="swimlane" connectable="0">
+					<mxGeometry as="geometry" width="200" height="200"/>
+				</mxCell>
+			</Container>
+		</add>
+		<add as="text">
+			<Text label="Text Here" href="">
+				<mxCell vertex="1" style="text">	
+					<mxGeometry as="geometry" width="80" height="20"/>
+				</mxCell>
+			</Text>
+		</add>
+		<add as="task">
+			<Shape label="Task" href="" type="task">
+				<mxCell vertex="1" style="ellipse">		
+					<mxGeometry as="geometry" width="90" height="60"/>
+				</mxCell>
+			</Shape>
+		</add>
+		<add as="condition">
+			<Shape label="Condition" href="" type="condition">
+				<mxCell vertex="1" style="rhombus">		
+					<mxGeometry as="geometry" width="90" height="60"/>
+				</mxCell>
+			</Shape>
+		</add>
+		<add as="tpl_beginpoint">
+			<Shape label="Begin" href="" type="begin">
+				<mxCell vertex="1" style="">		
+					<mxGeometry as="geometry" width="80" height="40"/>
+				</mxCell>
+			</Shape>
+		</add>
+		<add as="tpl_endpoint">
+			<Shape label="End" href="" type="end">
+				<mxCell vertex="1" style="">		
+					<mxGeometry as="geometry" width="80" height="40"/>
+				</mxCell>
+			</Shape>
+		</add>
+		<add as="tpl_x">
+			<Image label="" href="" type="x">
+				<mxCell vertex="1" style="style_x">	
+					<mxGeometry as="geometry" width="50" height="50"/>
+				</mxCell>
+			</Image>
+		</add>
+		<add as="tpl_email">
+			<Image label="" href="" type="email">
+				<mxCell vertex="1" style="style_email">	
+					<mxGeometry as="geometry" width="50" height="50"/>
+				</mxCell>
+			</Image>
+		</add>
+		<add as="tpl_plus">
+			<Image label="" href="" type="plus">
+				<mxCell vertex="1" style="style_plus">	
+					<mxGeometry as="geometry" width="50" height="50"/>
+				</mxCell>
+			</Image>
+		</add>
+	</Array>
+	<mxGraph as="graph" alternateEdgeStyle="verticalConnector" allowLoops="0" dropEnabled="1">
+		<add as="isAutoSizeCell"><![CDATA[
+			function(cell)
+			{
+				return mxUtils.isNode(this.model.getValue(cell), 'text');
+			}
+		]]></add>
+		<add as="isSwimlane"><![CDATA[
+			function (cell)
+			{
+				return mxUtils.isNode(this.model.getValue(cell), 'container');
+			}
+		]]></add>
+		<add as="getTooltipForCell"><![CDATA[
+			function(cell)
+			{
+				var isrun=cell.getAttribute('isrun',-1);
+				if(isrun<0) return;
+				var status="Unknown";
+				if(isrun==0)
+					status="Pending";
+				else if(isrun==1)
+					status="Finised";
+				else if(isrun==2)
+					status="Running";
+				else if(isrun==3)
+					status="Error";
+				return '<b>'+cell.getAttribute('label')+'</b>'+
+						'<br>Status: '+status+
+						'<br>Last start time: '+cell.getAttribute("start_time","Unknown")+
+						'<br>Last finish time: '+cell.getAttribute("finish_time","Unknown");
+			}
+		]]></add>
+		<add as="convertValueToString"><![CDATA[
+			function(cell)
+			{
+				return cell.getAttribute('label');
+			}
+		]]></add>
+		<mxStylesheet as="stylesheet">
+			<add as="text">
+				<add as="shape" value="rectangle"/>
+				<add as="perimeter" value="rectanglePerimeter"/>
+				<add as="fontSize" value="12"/>
+				<add as="align" value="left"/>
+				<add as="verticalAlign" value="top"/>
+				<add as="shadow" value="0"/>
+				<add as="strokeColor" value="none"/>
+				<add as="fillColor" value="none"/>
+				<add as="gradientColor" value="none"/>
+			</add>
+			<add as="defaultVertex" extend="text">
+				<add as="shape" value="rectangle"/>
+				<add as="fontSize" value="11"/>
+				<add as="align" value="center"/>
+				<add as="verticalAlign" value="middle"/>
+				<add as="shadow" value="1"/>
+				<add as="strokeColor" value="#C3D9FF"/>
+				<add as="fillColor" value="#C3D9FF"/>
+				<add as="gradientColor" value="white"/>
+			</add>
+			<add as="group">
+				<add as="shape" value="rectangle"/>
+				<add as="perimeter" value="rectanglePerimeter"/>
+				<add as="fontSize" value="10"/>
+				<add as="align" value="center"/>
+				<add as="verticalAlign" value="top"/>
+				<add as="strokeColor" value="gray"/>
+				<add as="dashed" value="1"/>
+				<add as="fillColor" value="#C3D9FF"/>
+				<add as="gradientColor" value="transparent"/>
+			</add>
+			<add as="defaultEdge">
+				<add as="shape" value="connector"/>
+				<add as="fontSize" value="10"/>
+				<add as="align" value="center"/>
+				<add as="verticalAlign" value="middle"/>
+				<add as="rounded" value="1"/>
+				<add as="labelBackgroundColor" value="white"/>
+				<add as="strokeColor" value="#36393D"/>
+				<add as="strokeWidth" value="1"/>
+				<add as="edgeStyle" value="elbowEdgeStyle"/>
+				<add as="endArrow" value="classic"/>
+			</add>
+			<add as="verticalConnector">
+				<add as="elbow" value="vertical"/>
+			</add>
+			<add as="straightConnector">
+				<add as="shape" value="connector"/>
+				<add as="endArrow" value="classic"/>
+				<add as="edgeStyle">null</add>
+			</add>
+			<add as="arrowConnector">
+				<add as="shape" value="arrow"/>
+				<add as="fillColor" value="#C3D9FF"/>
+				<add as="endSize" value="20"/>
+				<remove as="edgeStyle"/>
+			</add>
+			<add as="swimlane">
+				<add as="shape" value="swimlane"/>
+				<add as="shadow" value="0"/>
+				<add as="startSize" value="23"/>
+				<add as="align" value="center"/>
+				<add as="verticalAlign" value="middle"/>
+				<add as="strokeColor" value="#AECBE0"/>
+				<add as="fillColor" value="#AECBE0"/>
+				<add as="gradientColor" value="#AECBE0"/>
+				<add as="separatorColor" value="none"/>
+			</add>
+			<add as="rounded">
+				<add as="rounded" value="1"/>
+			</add>
+			<add as="ellipse">
+				<add as="shape" value="ellipse"/>
+				<add as="perimeter" value="ellipsePerimeter"/>
+				<add as="strokeColor" value="#CDEB8B"/>
+				<add as="fillColor" value="#CDEB8B"/>
+			</add>
+			<add as="doubleEllipse" extend="ellipse">
+				<add as="shape" value="doubleEllipse"/>
+			</add>
+			<add as="endpoint" extend="ellipse">
+				<add as="resizable" value="0"/>
+			</add>
+			<add as="beginpoint" extend="ellipse">
+				<add as="resizable" value="0"/>
+			</add>
+			<add as="rhombus">
+				<add as="shape" value="rhombus"/>
+				<add as="perimeter" value="rhombusPerimeter"/>
+				<add as="strokeColor" value="#FFCF8A"/>
+				<add as="fillColor" value="#FFCF8A"/>
+			</add>
+			<add as="triangle" extend="rhombus">
+				<add as="shape" value="triangle"/>
+				<add as="perimeter" value="trianglePerimeter"/>
+				<add as="align" value="left"/>
+			</add>
+			<add as="hexagon">
+				<add as="shape" value="hexagon"/>
+			</add>
+			<add as="actor">
+				<add as="shape" value="actor"/>
+				<add as="strokeColor" value="#FFC7C7"/>
+				<add as="fillColor" value="#FFC7C7"/>
+			</add>
+			<add as="cloud">
+				<add as="shape" value="cloud"/>
+				<add as="perimeter" value="ellipsePerimeter"/>
+				<add as="strokeColor" value="#CDEB8B"/>
+				<add as="fillColor" value="#CDEB8B"/>
+			</add>
+			<add as="cylinder">
+				<add as="shape" value="cylinder"/>
+				<add as="spacingTop" value="10"/>
+				<add as="strokeColor" value="#4096EE"/>
+				<add as="fillColor" value="#4096EE"/>
+			</add>
+			<add as="hline">
+				<add as="shape" value="line"/>
+				<add as="strokeWidth" value="3"/>
+				<add as="perimeter" value="rectanglePerimeter"/>
+				<add as="fontColor" value="black"/>
+				<add as="fontSize" value="10"/>
+				<add as="align" value="center"/>
+				<add as="verticalAlign" value="bottom"/>
+				<add as="strokeColor" value="#36393D"/>
+			</add>
+			<add as="style_x">
+				<add as="shape" value="image"/>
+				<add as="perimeter" value="rectanglePerimeter"/>
+				<add as="fontSize" value="10"/>
+				<add as="align" value="center"/>
+				<add as="verticalAlign" value="bottom"/>
+				<add as="image" value="/images/task_x.png"/>
+			</add>
+			<add as="style_email">
+				<add as="shape" value="image"/>
+				<add as="perimeter" value="rectanglePerimeter"/>
+				<add as="fontSize" value="10"/>
+				<add as="align" value="center"/>
+				<add as="verticalAlign" value="bottom"/>
+				<add as="image" value="/images/task_email.png"/>
+			</add>
+			<add as="style_plus">
+				<add as="shape" value="image"/>
+				<add as="perimeter" value="rectanglePerimeter"/>
+				<add as="fontSize" value="10"/>
+				<add as="align" value="center"/>
+				<add as="verticalAlign" value="bottom"/>
+				<add as="image" value="/images/task_plus.png"/>
+			</add>
+		</mxStylesheet>
+		<mxGraphModel as="model">
+			<add as="valueForCellChanged"><![CDATA[
+				function(cell, value)
+				{
+					var previous = null;
+					
+					if (value == null || isNaN(value.nodeType))
+					{
+						previous = cell.value.getAttribute('label');
+
+						if (value == null)
+						{
+							cell.value.removeAttribute('label');
+						}
+						else
+						{
+							cell.setAttribute('label', value);
+						}
+					}
+					else
+					{
+						previous = cell.value;
+						cell.value = value;
+					}
+					
+					return previous;
+				}
+			]]></add>
+			<root>
+				<Diagram label="Test Diagram" href="" id="0">
+					<mxCell/>
+				</Diagram>
+				<Layer label="Default Layer" id="1">
+					<mxCell parent="0"/>
+				</Layer>
+			</root>
+		</mxGraphModel>
+	</mxGraph>
+	<mxDefaultToolbar as="toolbar">
+		<add as="connect" mode="connect" icon="/images/connect.gif"><![CDATA[
+			function (editor)
+			{
+				if (editor.defaultEdge != null)
+				{
+					editor.defaultEdge.style = null;
+				}
+			}
+		]]></add>
+<!--
+		<add as="connect" mode="connect" icon="images/straight.png"><![CDATA[
+			function (editor)
+			{
+				if (editor.defaultEdge != null)
+				{
+					editor.defaultEdge.style = 'straightConnector';
+				}
+			}
+		]]></add>
+		<add as="connect" mode="connect" icon="images/arrow.png"><![CDATA[
+			function (editor)
+			{
+				if (editor.defaultEdge != null)
+				{
+					editor.defaultEdge.style = 'arrowConnector';
+				}
+			}
+		]]></add>
+-->
+		<add as="Text" template="text" icon="/images/text.png"/>
+		<br/>
+		<add as="Icon X" template="tpl_x" icon="/images/icon_x.png"/>	
+		<add as="Email" template="tpl_email" icon="/images/icon_email.png"/>	
+		<add as="Plus" template="tpl_plus" icon="/images/icon_plus.png"/>	
+		<add as="Begin Point" template="tpl_beginpoint" style="beginpoint" icon="/images/begin.png"/> 
+		<add as="End Point" template="tpl_endpoint" style="endpoint" icon="/images/end.png"/> 
+<br/>
+		<add as="Rhombus" template="condition" icon="/images/rhombus.png"/>
+		<add as="Container" template="container" icon="/images/swimlane.png"/>
+		<add as="Rectangle" template="task" style="rect" icon="/images/rectangle.png"/>
+		<add as="Rounded" template="task" style="rounded" icon="/images/rounded.png"/>
+		<add as="Ellipse" template="task" style="ellipse" icon="/images/ellipse.png"/>
+<!--		<add as="Double Ellipse" template="shape" style="doubleEllipse" icon="images/doubleellipse.png"/> -->
+
+<br/>
+		<add as="Hexagon" template="task" style="hexagon" icon="/images/hexagon.png"/> 
+		<add as="Triangle" template="task" style="triangle" icon="/images/triangle.png"/>
+		<add as="Cylinder" template="task" style="cylinder" icon="/images/cylinder.png"/>
+		<add as="Cloud" template="task" style="cloud" icon="/images/cloud.png"/>
+<!--		<add as="Line" template="hline" style="hline" icon="images/hline.png"/> -->
+	</mxDefaultToolbar>
+</mxEditor>

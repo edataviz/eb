@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html manifest="eb.manifest">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+*{font-family:Arial}
+</style>
+</head>
+<body>
+<div style="position:absolute;width:100%;height:100%">
+<table width="100%" height="100%"><tr><td align="center">
+<h3>ENERGY BUILDER DATA CAPTURE</h3>
+<span id="message">Downloading application... </span>
+</td></tr></table></div>
+<script>
+var message=document.getElementById('message');
+var webappCache = window.applicationCache;
+var cacheItemsCount = 28;
+var count = 0;
+function beginApp(){
+	window.location="main.html";
+}
+function log(s){
+	message.innerHTML = s;
+}
+function noupdateCache() {
+	log("No update to cache found");
+	beginApp();
+}
+function doneCache() {
+	log("Application has finished downloading");
+	beginApp();
+}
+function progressCache() {
+	count++;
+	//message.innerHTML = Math.round(count/cacheItemsCount)+'%';
+	log("Downloading application... "+Math.round(100*count/cacheItemsCount)+'%');
+}
+function updateCache() {
+	webappCache.swapCache();
+	log("Cache has been updated due to a change found in the manifest");
+	beginApp();
+}
+function errorCache() {
+	log("You're either offline or something has gone horribly wrong.");
+	beginApp();
+}
+webappCache.addEventListener("progress", progressCache, false);
+webappCache.addEventListener("cached", doneCache, false);
+webappCache.addEventListener("noupdate", noupdateCache, false);
+webappCache.addEventListener("updateready", updateCache, false);
+webappCache.addEventListener("error", errorCache, false);
+</script>	
+</body>
+</html>

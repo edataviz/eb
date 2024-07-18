@@ -1,0 +1,209 @@
+[toolbar] .geToolbar {
+	padding: 0;
+	border: 0;
+	-webkit-box-shadow: unset;
+	-moz-box-shadow: unset;
+	box-shadow: unset;
+}
+
+[toolbar] .geToolbarContainer {
+    top: 0px!important;
+    height: 30px!important;
+    background: unset;
+    border: unset;
+    position: relative;
+    overflow: hidden!important;
+    display: inline-block;
+}
+
+[toolbar] .geMenubarContainer {
+    height: 25px!important;
+    background: transparent;
+    line-height: 7px;
+    position: relative;
+    display: inline-block;
+}
+
+[toolbar] .geToolbarContainer .geLabel {
+    line-height: normal;
+}
+
+.geDialog .properties td:first-child {
+    width: 100px;
+}
+
+.geDialog .properties.gauge .config textarea {
+    height: 50px;
+}
+.geDialog .properties.gauge .expression textarea {
+    height: 50px;
+}
+
+.geDialog .properties .geButton {
+    right: -5px!important;
+}
+
+.geDialog>div>div {
+    overflow: visible auto;
+}
+
+.geDialog .properties textarea {
+    resize: vertical;
+}
+
+.html-box {
+    background: transparent;
+}
+
+/* prevent default style to affect Graph Editor styte */
+*, :after, :before {
+    box-sizing: content-box;
+}
+
+.mxPopupMenuItem {
+    font-family: unset!important;
+}
+
+button {
+    box-sizing: border-box;
+}
+
+[class^="ge"] button, [class*=" ge"] button {
+    line-height: unset!important;
+    min-width: unset!important;
+}
+/****/
+[toolbar] [ge-box] {
+    padding-top: 5px;
+    line-height: 0;
+    margin-left: 20px;
+}
+[toolbar] [ge-box-container] {
+    height: 100%;
+    flex: 1;
+    margin-left: 20px;
+}
+[toolbar] i.icon {
+    font-size: 16px;
+}
+[toolbar] .ui.icon.button {
+    padding: 10px 8px;
+}
+[toolbar] .button {
+    height: unset;
+}
+[toolbar] .buttons .button {
+    padding-left: 10px;
+    padding-right: 0;
+}
+[toolbar] #filter-diagram-type .ui.dropdown {
+    background: lightyellow;
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-weight: bold;
+    height: auto;
+    border: 1px solid #d8d8d8;
+    line-height: 26px!important;
+}
+[toolbar] #filter-diagram-type {
+    line-height: 60px!important;
+    margin: 0 5px;
+}
+
+[toolbar] [buttons-box] {
+    flex: unset;
+    padding-left: unset;
+}
+/*
+[network-title-box] {
+    max-width: 300px;
+    height: 60px;
+    display: table!important;
+    padding: 1px!important;
+}
+[network-title] {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 5px;
+    font-weight: bold;
+}
+*/
+[network-title] {
+    font-weight: bold;
+    max-width: 300px;
+}
+#box-network-title {
+    max-width: 300px;
+    padding: 0 20px;
+}
+[network-title]:focus {
+    outline: none;
+}
+
+#box-buttons {
+    white-space: nowrap;
+}
+
+.nd-tb-button {
+    min-width: unset;
+    background: unset;
+    border: unset;
+    margin: 14px 2px;
+    padding: unset;
+    width: 32px;
+    height: 32px;
+    border-radius: 20px;
+}
+.nd-tb-button:before {
+    font: normal normal normal 18px Icons;
+    line-height: 34px;
+}
+.nd-tb-button:hover {
+    background: rgba(255,255,255,0.75);
+}
+
+.nd-tb-button.btn-edit:before {
+    content: '\19';
+    font-size: 17px;
+}
+.nd-tb-button.btn-new:before {
+    content: '\3c';
+}
+.nd-tb-button.btn-open:before {
+    content: '\3d';
+}
+.nd-tb-button.btn-save:before {
+    content: '\3b';
+}
+.nd-tb-button.btn-save-as:before {
+    content: '\3b';
+}
+
+.box-config-gauge table {
+    width: 100%;
+    border-collapse: separate;
+}
+.box-config-gauge input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.dialog-config {
+    display: none;
+    width: 500px;
+    height: 400px;
+}
+
+.dialog-config *{
+    box-sizing: border-box;
+}
+
+#boxSelectFacility {
+    min-width: 120px!important;
+}
+#boxSelectObjectType {
+    min-width: 120px!important;
+}
+#boxSelectObject {
+    min-width: 200px!important;
+}

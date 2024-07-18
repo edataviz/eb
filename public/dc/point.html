@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html manifest="eb.manifest">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+	<!--<script src="js/config.js"></script>-->
+	<script src="js/utils.js"></script>
+	<script src="js/point.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body onload="loadData()">
+
+    <div data-role="page">
+        <div data-role="header" data-position="fixed">
+            <h1>DATA CAPTURE</h1>
+        </div>
+		
+		<img class="logo">
+		
+		<div class="top_menu" onclick="click_menu(this)">
+			<div class="menu_item" id="item1"></div>
+			<div class="menu_item" id="item2"></div>
+			<div class="menu_item" id="item3"></div>
+		</div>
+
+        <div data-role="main" class="ui-content">
+			<h3 id="path"></h3>
+			  <div data-icon=false id="details">
+				  <li><a href="#">Email<div class="ui-li-count">71</div></a></li>
+			  </div>
+			<br><br>
+			<a href="#" class="ui-btn" data-icon="check" onclick="completePoint()">COMPLETE POINT</a>
+			<a href="#" class="ui-btn" data-icon="delete" onclick="resetPoint()">RESET POINT</a>
+			<a href="#" class="ui-btn" data-rel="back" data-icon="back">BACK TO ROUTE</a>
+        </div>
+
+        <div data-role="footer" class="footer">
+            <h1>@Copyright: --------</h1>
+        </div>
+    </div>
+
+</body>
+
+</html>

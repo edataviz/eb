@@ -1,0 +1,1 @@
+cd C:\xampp\htdocs\eblara\ & php artisan queue:listen  --timeout=0

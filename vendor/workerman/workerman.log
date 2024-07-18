@@ -1,0 +1,4 @@
+2018-10-31 12:16:13 pid:1 Worker process terminated with ERROR: E_ERROR "Call to a member function writeHead() on a non-object in C:\xampp\htdocs\eblara\vendor\workerman\phpsocket.io\src\Engine\Engine.php on line 101"
+2018-10-31 12:18:06 pid:1 Worker process terminated with ERROR: E_ERROR "Call to a member function writeHead() on a non-object in C:\xampp\htdocs\eblara\vendor\workerman\phpsocket.io\src\Engine\Engine.php on line 101"
+2018-11-01 01:23:28 pid:1 Worker process terminated with ERROR: E_ERROR "Class 'App\Console\Timer' not found in C:\xampp\htdocs\eblara\app\Console\LaravelWorkermanServer.php on line 65"
+2018-11-01 01:27:48 pid:1 Worker process terminated

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2019-03-26T01:36:42 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Sub_well_test_summary" pageWidth="1750" pageHeight="842" orientation="Landscape" columnWidth="1710" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d3f2f5bc-865e-4fed-b8f7-f1888a8ef11e">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter 1"/>
+	<parameter name="startTime" class="java.util.Date"/>
+	<parameter name="endTime" class="java.util.Date"/>
+	<parameter name="facility_id" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT b.name well_name, c.name status, null used_in_alloc, null primary_well, d.name test_type, a.begin_time start_datetime, Hour(TIMEDIFF(a.end_time, a.begin_time)) duration, a.effective_date, e.choke_setting choke, a.gor, a.water_cut, e.EU_TEST_CHP whp, e.EU_TEST_WHT wht, a.EU_TEST_LIQ_HC_VOL oil_rate, null oil_rate_dev_last, a.eu_test_gas_hc_vol gas_rate, null gas_rate_dev_last, a.eu_test_wtr_vol water_rate, null comments
+FROM eu_test_data_value a left join eu_test_data_fdc_value e on a.eu_id = e.EU_ID
+AND a.effective_date = e.effective_date left join code_testing_usage d on a.test_usage = d.id, energy_unit b left join code_status c on b.status = c.id
+WHERE a.eu_id=b.id
+	AND a.effective_date >= $P{startTime}
+	AND a.effective_date <= $P{endTime}
+	AND b.facility_id=$P{facility_id}
+GROUP BY a.eu_id, a.begin_time
+ORDER BY b.id]]>
+	</queryString>
+	<field name="well_name" class="java.lang.String"/>
+	<field name="status" class="java.lang.String"/>
+	<field name="used_in_alloc" class="java.lang.Object"/>
+	<field name="primary_well" class="java.lang.Object"/>
+	<field name="test_type" class="java.lang.String"/>
+	<field name="start_datetime" class="java.sql.Timestamp"/>
+	<field name="duration" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="effective_date" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="gor" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="water_cut" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="whp" class="java.lang.Object"/>
+	<field name="wht" class="java.lang.Object"/>
+	<field name="oil_rate" class="java.math.BigDecimal"/>
+	<field name="oil_rate_dev_last" class="java.lang.Object"/>
+	<field name="gas_rate" class="java.math.BigDecimal"/>
+	<field name="gas_rate_dev_last" class="java.lang.Object"/>
+	<field name="water_rate" class="java.math.BigDecimal"/>
+	<field name="comments" class="java.lang.Object">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="choke" class="java.math.BigDecimal"/>
+	<group name="well_name"/>
+	<group name="WellName">
+		<groupExpression><![CDATA[$F{well_name}]]></groupExpression>
+		<groupHeader>
+			<band height="27">
+				<textField>
+					<reportElement x="0" y="5" width="200" height="20" uuid="12ebe7a3-c1c9-409e-b67a-fabd98efb3cd"/>
+					<textFieldExpression><![CDATA[$F{well_name}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="200" y="5" width="100" height="20" uuid="bef51b6b-d630-4570-9378-5bd90d4012f3"/>
+					<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="31">
+				<line>
+					<reportElement x="0" y="28" width="1680" height="1" uuid="8fe29762-b986-42ec-951d-aeb7783872c3"/>
+					<graphicElement>
+						<pen lineStyle="Dotted"/>
+					</graphicElement>
+				</line>
+				<textField>
+					<reportElement x="40" y="8" width="170" height="20" printWhenGroupChanges="WellName" uuid="e8b63c47-921f-482b-859f-782375b0efe1"/>
+					<textFieldExpression><![CDATA[$V{WellName_COUNT}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="8" width="40" height="20" uuid="bbde62fa-ea29-4f8c-83fb-a3788441a126"/>
+					<textElement>
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total:]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="29" width="119" height="20" uuid="9f1ed645-8c24-4c74-b9ae-d935b7efcefa"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Well name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="29" width="100" height="20" uuid="0daf8682-ec73-4dcb-b044-9c95425b1be9"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="29" width="100" height="20" uuid="f52c923b-aa22-44ea-ae4f-0903657ff2ca"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Test Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="29" width="100" height="20" uuid="46991599-15c4-4032-90d6-ce9dd8912bbe"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Start Datetime]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="500" y="29" width="100" height="20" uuid="7d2649fc-f71f-4077-b30c-d2d215f39486"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Duration (hrs)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="600" y="29" width="90" height="20" uuid="a89d8271-3279-4cda-898e-0cf29559cfa6"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Effective Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToBandHeight" x="690" y="29" width="90" height="20" uuid="11da51dc-b2c8-4f0f-9473-f24457b74518"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Choke (%)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="780" y="29" width="90" height="20" uuid="d79b157c-aa80-4171-a10d-ea338c1cbc1c"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[GOR (Sm³/Sm³)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="870" y="29" width="90" height="20" uuid="0740f63b-4599-4ce3-ade8-68a45672f0f3"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Watercut (%)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="960" y="29" width="90" height="20" uuid="526d762e-e598-45bd-97b0-18b0c0a55384"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[WHP (kPa)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1050" y="29" width="90" height="20" uuid="f7f42e76-aa05-4865-94e0-18976d917dae"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[WHT (°C)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1140" y="29" width="130" height="20" uuid="1374de4a-be24-40ab-b508-49170fd01069"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Oil rate (Sm³/d)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1270" y="29" width="120" height="20" uuid="84a6de8b-69e6-4eda-a07b-b75132ad33df"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gas rate (Sm³/d)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1390" y="29" width="120" height="20" uuid="ca1d0064-07c8-4918-afaa-1bbf62a57652"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Water rate (Sm³/d)]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="49" width="1680" height="3" uuid="25478df9-c3af-4e5e-a117-5d59173d7d22"/>
+			</line>
+			<staticText>
+				<reportElement x="1510" y="29" width="170" height="20" uuid="1c00484d-504d-43ac-985c-7a30e86608e1"/>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Comments]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="300" y="2" width="100" height="20" uuid="51fad613-3807-4eb5-8c06-75e9809bcd0e"/>
+				<textFieldExpression><![CDATA[$F{test_type}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MM/dd/yyyy" isBlankWhenNull="true">
+				<reportElement x="400" y="2" width="100" height="20" uuid="d02e5db2-23e3-4053-a894-1d961f743ed3"/>
+				<textFieldExpression><![CDATA[$F{start_datetime}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.###" isBlankWhenNull="true">
+				<reportElement x="500" y="2" width="100" height="20" uuid="28344fba-85cf-4b62-8bf3-d230aad0b1d0"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{duration}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MM/dd/yyyy" isBlankWhenNull="true">
+				<reportElement x="600" y="2" width="90" height="20" uuid="e80d2227-2e9c-4370-a834-50ff625153f4"/>
+				<textFieldExpression><![CDATA[$F{effective_date}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="780" y="2" width="90" height="20" uuid="41fc2e04-0091-4aa3-a0bd-b081ea1dd525"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{gor}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="870" y="2" width="90" height="20" uuid="260ade54-5e33-468d-92b6-e06088727a2f"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{water_cut}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="960" y="2" width="90" height="20" uuid="c92ac169-7493-4b8d-a694-c0fec7276b3f"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{whp}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1050" y="2" width="90" height="20" uuid="4db74f81-a7de-47ef-af40-004539eb1a0c"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{wht}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1140" y="2" width="130" height="20" uuid="b4ff3a09-2ce6-4e10-81e3-7e1e5bcc6edb"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{oil_rate}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1270" y="2" width="120" height="20" uuid="a7a1996e-c800-4c3e-b679-8e9c75ce9eb9"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{gas_rate}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1390" y="2" width="120" height="20" uuid="4475f2a7-8396-4a82-888a-3449ad7f2b39"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{water_rate}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="690" y="2" width="90" height="20" uuid="86669458-ce74-4a4b-b715-75b3298a8a4d"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{choke}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1510" y="2" width="200" height="20" uuid="f0131ed2-bc2c-4898-94a4-5020cbee589a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{comments}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="28" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

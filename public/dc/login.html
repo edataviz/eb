@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html manifest="eb.manifest">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+	<script src="js/utils.js"></script>
+	<script src="js/login.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body onload="init()">
+
+    <div data-role="page">
+        <div data-role="header" data-position="fixed">
+            <h1>DATA CAPTURE</h1>
+        </div>
+		
+		<img class="logo">
+
+        <div data-role="main" class="ui-content">
+            <form method="post" action="login.html" >
+			<br><b>Please login<script>var v=readParameter('loginToDo'); if(v!=null && v!="") document.write(" to "+v);</script></b><br><br>
+				<label for="username">Username</label>
+				<input type="text" name="username" id="username"> 
+				<label for="password">Password</label>
+				<input type="password" name="Password" id="password"> 
+
+                <br>
+                <div data-role="controlgroup" data-type="vertical">
+                </div>
+            </form>
+	        <a href="#" class="ui-btn" onclick="authentication();">LOGIN</a>
+			<a href="#" class="ui-btn" onclick="window.location.assign('main.html')">BACK</a>
+        </div>
+		
+        <div data-role="footer" class="footer">
+            <h1>@Copyright: --------</h1>
+        </div>
+    </div>
+
+</body>
+
+</html>

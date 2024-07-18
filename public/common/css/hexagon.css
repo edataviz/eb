@@ -1,0 +1,254 @@
+a {
+	text-decoration:none;
+	color: #3e8ed7;
+}
+
+a:hover {
+	color: #61b7e6;
+}	
+
+.hex_container {
+	width:650px;
+	position:absolute;
+	top:120px;
+	left:50%;
+	margin-left:-325px;
+}
+#shadow_box {
+	position:absolute;
+	top:120px;
+	left:50%;
+	margin-left:-600px;
+	margin-top:-53px;
+	z-index: -1;
+}
+#hex_logo
+{
+	position:absolute;
+	top:120px;
+	left:50%;
+	margin-left:-570px;
+	margin-top:-30px;
+}
+#poweredBy 
+{
+	width:150px;
+	position:absolute;
+	left:50%;
+	margin-left:+396px;
+	top:392px;
+}
+
+/* HEXAGON STARTS HERE */
+.hex {
+	width:150px;
+	height:86px;
+	background-color: #eee;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	position: relative;
+	float:left;
+	margin:25px 3px;
+	text-align:center;
+	z-index: 1;
+	display: table;
+	transition: all 200ms linear;
+	cursor: pointer;
+	//opacity:0.8;
+}
+
+.hex:hover {
+    transform: scale(1.2);
+    z-index:999;
+
+}
+
+.hex:hover hr {
+	width:100%;
+}
+
+.hex.hex-m:hover {
+	//background-color: #aaaaaa;
+}
+
+.hex_disabled, .hex_dim{
+	transform:none !important;
+}
+
+	.hex.hex-gap {
+		margin-left: 81px;
+	}
+	
+	.hex a {
+		display:block;
+		width: 100%;
+		height:100%;
+		text-indent:-9999em;
+		position:absolute;
+		top:0;
+		left:0;
+	}
+
+	.hex .corner-1,
+	.hex .corner-2 {
+		position: absolute;
+		top:0;
+		left:0;
+		width:100%;
+		height:100%;
+		background: inherit;
+		z-index:-2;						
+		overflow:hidden;		
+	}
+	
+	.hex .corner-1 {
+		z-index:-1;
+		-webkit-transform: rotate(60deg);
+		-moz-transform: rotate(60deg);
+		-ms-transform: rotate(60deg);
+		-o-transform: rotate(60deg);
+		transform: rotate(60deg);
+	}
+	
+	.hex .corner-2 {
+		-webkit-transform: rotate(-60deg);
+		-moz-transform: rotate(-60deg);
+		-ms-transform: rotate(-60deg);
+		-o-transform: rotate(-60deg);
+		transform: rotate(-60deg);
+	}
+	
+	.hex .corner-1:before,
+	.hex .corner-2:before {
+		width: 173px;
+		height:	173px;
+	  content: '';
+	  position: absolute;
+	  background: inherit;
+	  top:0;
+	  left: 0;
+	  z-index: 1;
+	  background: inherit;
+	  background-repeat:no-repeat;				  
+	}			
+	
+	.hex .corner-1:before {
+		-webkit-transform: rotate(-60deg) translate(-87px, 0px);
+		-moz-transform: rotate(-60deg) translate(-87px, 0px);
+		-ms-transform: rotate(-60deg) translate(-87px, 0px);
+		-o-transform: rotate(-60deg) translate(-87px, 0px);
+		transform: rotate(-60deg) translate(-87px, 0px);	
+	  -webkit-transform-origin: 0 0;
+	  -moz-transform-origin: 0 0;
+	  -ms-transform-origin: 0 0;
+	  -o-transform-origin: 0 0;
+	  transform-origin: 0 0;
+	}			
+	
+	.hex .corner-2:before {
+		-webkit-transform: rotate(60deg) translate(-48px, -11px);
+		-moz-transform: rotate(60deg) translate(-48px, -11px);
+		-ms-transform: rotate(60deg) translate(-48px, -11px);
+		-o-transform: rotate(60deg) translate(-48px, -11px);
+		transform: rotate(60deg) translate(-48px, -11px);	
+		bottom:0;
+	}		
+
+	/* Custom styles*/
+	.hex .inner  {		
+		color:#fff;
+		display: table-cell;
+		vertical-align: middle;
+	}
+	
+	h4 {
+		font-size:10pt;font-weight:bold;
+		text-shadow:0 1px 1px #000000;		
+		margin:0;
+		padding:4px;
+		text-transform: uppercase;
+	}
+	.hex_disabled h4 {
+		color:#bbbbbb;	
+	}
+	
+	.hex hr {
+		border:0;
+		border-top:1px solid #eee;
+		width:60%;
+		transition: width 200ms linear;
+	}
+	
+	.hex p {
+		font-size:16px;
+		font-family: 'Kotta One', serif;
+		width:80%;
+		margin:0 auto;
+	}
+
+	.hex.hex-1 {
+		background: #d08924;
+	}
+	
+	.hex.hex-login {
+		background-image: url('../../img/loginbg.png')
+	}
+	
+	.hex.hex-logout {
+		background: #999;
+	}
+	
+	.hex.hex-2 {
+		background: #d46247;
+	}
+	
+	.hex.hex-3 {
+		background: #3271b2;
+	}
+
+	.hex.hex-m {
+		background: #888888;
+	}
+
+	.hex_disabled {
+		background: #666666;
+	}
+	.hex_dim {
+		background: #444444;
+		cursor:default;
+	}
+	.hex_dim  .inner{display:none}
+	.v_center {		
+		color:#fff;
+		display: table-cell; vertical-align: middle;
+	}	
+	.v_bottom {		
+		color:#fff;font-size:12pt;
+		display: table-cell; vertical-align: bottom;
+	}
+	.r_textbox {
+	    background: transparent;
+	    text-align:center;
+	    border-radius: 0px;
+	    border:none;
+	    margin-top: 10px;
+	    padding: 0px;
+	    color: #fff;
+	    font-size: 10pt;
+	    outline: none;	    
+	}
+	.button_login {
+	    background: #d46247;
+	    text-align:center;
+	    border-radius: 5px;
+	    border: none;
+	    margin: 10px;
+	    padding: 3px;
+	    color: #fff;
+	    font-size: 12pt;
+	    outline: none;	    
+	}	
+	.button_login:hover{
+	    background: #888;
+	    color: #fff;
+	}

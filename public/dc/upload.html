@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<html manifest="eb.manifest">
+
+
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+
+    <script src="js/jquery-1.7.2.min.js"></script>
+
+    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+
+	<script src="js/config.js"></script>
+
+	<script src="js/utils.js"></script>
+
+	<script src="js/upload.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+</head>
+
+
+
+<body onload="init()">
+
+
+
+    <div data-role="page">
+
+        <div data-role="header" data-position="fixed">
+
+            <h1>DATA CAPTURE</h1>
+
+        </div>
+
+		
+
+		<img class="logo">
+
+		
+
+		<div class="top_menu" onclick="click_menu(this)">
+
+			<div class="menu_item" id="item1"></div>
+
+			<div class="menu_item" id="item2"></div>
+
+			<div class="menu_item" id="item3"></div>
+
+		</div>
+
+
+
+        <div data-role="main" class="ui-content">
+
+			Date <input type="date" data-role="date" data-inline="true" id="dteFilter">
+
+			<br><br><br>
+
+			<a href="#" class="ui-btn" onclick="uploadData();">UPLOAD</a>
+
+			<a href="#" class="ui-btn" onclick="window.location.assign('main.html');">BACK</a>
+
+        </div>
+
+
+
+        <div data-role="footer" class="footer">
+
+            <h1>@Copyright: --------</h1>
+
+        </div>
+
+    </div>
+
+
+
+</body>
+
+
+
+</html>

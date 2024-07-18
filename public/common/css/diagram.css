@@ -1,0 +1,164 @@
+/* #edit_buttons input {
+	
+}
+
+td {
+	font-size: 8pt
+}
+
+.tabselected, .tabnormal {
+	cursor: pointer;
+	font-weight: bold;
+	font-size: 7.5pt;
+	color: #fff;
+	padding: 5px;
+	text-align: center
+}
+
+.tabselected {
+	background: #959596;
+}
+
+.tabnormal {
+	background: none;
+}
+
+.abutton {
+	cursor: pointer;
+	padding: 0px;
+	font-size: 8pt;
+	background: #ffffff;
+	border: 1px solid #666;
+	text-align: center;
+	color: #666;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+}
+
+.abutton:hover {
+	background: #88BCD9;
+}
+
+.abutton:active {
+	background: #6CADD0;
+}
+
+.xbutton {
+	cursor: pointer;
+	padding: 0px;
+	font-size: 8pt;
+	background: #666;
+	border: 0px solid #666;
+	text-align: center;
+	color: #ffffff;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.xbutton:hover {
+	background: #88BCD9;
+}
+
+.xbutton:active {
+	background: #6CADD0;
+}
+
+.ebutton {
+	cursor: pointer;
+	width: 22px;
+	padding: 0px;
+	font-size: 8pt;
+	background: white;
+	border: 1px solid #666;
+	text-align: center;
+	color: #ffffff;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.ebutton:hover {
+	background: #eeeeee;
+}
+
+.ebutton:active {
+	background: #e0e0e0;
+}
+
+#Qoccurdate, #Qflowphase {
+	background: #eee;
+}
+
+.dark_bg {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5)
+}
+
+td.mxWindowPane button {
+	color: black
+}
+
+.skin4.top .tab_content {
+	padding: 0px
+}
+
+#content {
+	padding-top: 20px;
+	background: #eeeeee;
+} */
+
+#phase_type,#alloc_type,#plan_type,#forecast_type {display:none}
+	#edit_buttons input{}
+    td {font-size:8pt}
+    .tabselected,.tabnormal { cursor:pointer;font-weight:bold;font-size:7.5pt;color:#fff;padding:5px;text-align:center}
+    .tabselected {background:#959596;}
+    .tabnormal {background:none;}
+    .abutton{
+        cursor:pointer;
+        padding:0px;
+        font-size:8pt;
+        background:#ffffff;
+        border:1px solid #666;
+        text-align:center;
+        color:#666;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+    }
+    .abutton:hover{background:#88BCD9;}
+    .abutton:active{background:#6CADD0;}
+    .xbutton{
+        cursor:pointer;
+        padding:0px;
+        font-size:8pt;
+        background:#666;
+        border:0px solid #666;
+        text-align:center;
+        color:#ffffff;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+    }
+    .xbutton:hover{background:#88BCD9;}
+    .xbutton:active{background:#6CADD0;}
+    .ebutton{
+        cursor:pointer;
+		width:22px;
+        padding:0px;
+        font-size:8pt;
+        background:white;
+        border:1px solid #666;
+        text-align:center;
+        color:#ffffff;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+    }
+    .ebutton:hover{background:#eeeeee;}
+    .ebutton:active{background:#e0e0e0;}
+	#Qoccurdate, #Qflowphase{
+		background:#eee;
+	}
+	.dark_bg{position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.5)}
+	td.mxWindowPane button {color:black}
+	.skin4.top .tab_content {padding:0px}

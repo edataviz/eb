@@ -1,0 +1,1505 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2017-04-09T00:32:05 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Well_summary" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13a397aa-fce7-40fe-b679-f115a7b2ae9c">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="begin_date" class="java.util.Date">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="end_date" class="java.util.Date">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="facility_id" class="java.lang.Integer">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="ROOT_DIR" class="java.lang.String"/>
+	<parameter name="code" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{ROOT_DIR}+"/wellsummary/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="report_time" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select 
+date_format(LAST_DAY(DATE_SUB($P{begin_date}, INTERVAL 1 MONTH)),'%m/%d/%Y') day1,
+date_format(LAST_DAY(DATE_SUB($P{begin_date}, INTERVAL 0 MONTH)),'%m/%d/%Y') day2,
+round(100*round(c28,2)/round(c17,2),2) C29,
+round(c9,2) c9,
+round(c10,2) c10,
+round(c11,2) c11,
+round(c12,2) c12,
+round(c14,2) c14,
+round(c15,2) c15,
+round(c16,2) c16,
+round(c17,2) c17,
+round(c19,2) c19,
+round(c22,2) c22,
+round(c23,2) c23,
+round(c24,2) c24,
+round(c25,2) c25,
+round(c26,2) c26,
+round(c27,2) c27,
+round(c28,2) c28,
+round(c32,2) c32,
+round(c33,2) c33,
+round(c34,2) c34,
+round(c35,2) c35,
+round(c36,2) c36,
+round(c37,2) c37,
+round(c38,2) c38,
+round(c39,2) c39,
+round(c40,2) c40,
+round(c42,2) c42,
+round(c45,2) c45,
+round(c46,2) c46,
+round(c9*6.2898,2) d9,
+round(c10*6.2898,2) d10,
+round(c11*6.2898,2) d11,
+round(c12*6.2898,2) d12,
+round(c14*6.2898,2) d14,
+round(c15*6.2898,2) d15,
+round(c16*6.2898,2) d16,
+round(c17*6.2898,2) d17,
+round(c19*6.2898,2) d19,
+round(c22*6.2898,2) d22,
+round(c23*6.2898,2) d23,
+round(c24*6.2898,2) d24,
+round(c25*6.2898,2) d25,
+round(c26*6.2898,2) d26,
+round(c27*6.2898,2) d27,
+round(c28*6.2898,2) d28,
+round(c32*35.314725/1000000,2) d32,
+round(c33*35.314725/1000000,2) d33,
+round(c34*35.314725/1000000,2) d34,
+round(c35*35.314725/1000000,2) d35,
+round(c36*35.314725/1000000,2) d36,
+round(c37*35.314725/1000000,2) d37,
+round(c38*35.314725/1000000,2) d38,
+round(c39*35.314725/1000000,2) d39,
+round(c40*35.314725/1000000,2) d40,
+round(c42*35.314725/1000000,2) d42
+from(
+select *, C17-C27 c28, C17/DAY(LAST_DAY(date_format($P{begin_date},'%Y/%m/01'))) C19 from(
+select *, c12+c16 c17 from(
+select *, c9+c10+c11 c12, c14+c15 c16,C25-C24+C26 c27, (c32+c33+c34+c35+c36+c37+c38+c39) C40, case when c33=0 then 0 else round(c46e*1000/c33,2) end c46 from
+(
+select 
+(select ifnull(sum(a.FL_DATA_GRS_VOL),0)
+from flow_data_value a, flow b
+where a.flow_id=b.id and b.CODE='CTP_IND_OIL'
+and date_format(a.occur_date,'%Y/%m/01')=date_format($P{begin_date},'%Y/%m/01')) c9,
+
+(select ifnull(sum(a.FL_DATA_GRS_VOL),0)
+from flow_data_value a, flow b
+where a.flow_id=b.id and b.CODE='ESS_PROD_OIL'
+and date_format(a.occur_date,'%Y/%m/01')=date_format($P{begin_date},'%Y/%m/01')) c10,
+
+(select ifnull(sum(a.FL_DATA_GRS_VOL),0)
+from flow_data_value a, flow b
+where a.flow_id=b.id and b.CODE='CTP_REM_TNK_OIL'
+and date_format(a.occur_date,'%Y/%m/01')=date_format($P{begin_date},'%Y/%m/01')) c11,
+
+(select ifnull(sum(a.FL_DATA_GRS_VOL),0)
+from flow_data_value a, flow b
+where a.flow_id=b.id and b.CODE='CTP_ALLOC_COND'
+and date_format(a.occur_date,'%Y/%m/01')=date_format($P{begin_date},'%Y/%m/01')) c14,
+
+(select ifnull(sum(a.FL_DATA_GRS_VOL),0)
+from flow_data_value a, flow b
+where a.flow_id=b.id and b.CODE='ESS_ALLOC_COND'
+and date_format(a.occur_date,'%Y/%m/01')=date_format($P{begin_date},'%Y/%m/01')) c15,
+
+0 c22,0 c23,
+(select ifnull(sum(a.STORAGE_GRS_VOL),0)
+from storage_data_value a
+where a.occur_date=LAST_DAY(DATE_SUB($P{begin_date}, INTERVAL 1 MONTH))) c24,
+(select ifnull(sum(a.STORAGE_GRS_VOL),0)
+from storage_data_value a
+where a.occur_date=LAST_DAY(DATE_SUB($P{begin_date}, INTERVAL 0 MONTH))) c25,
+
+(select ifnull(sum(a.FL_DATA_GRS_VOL),0)
+from flow_data_value a, flow b
+where a.flow_id=b.id and b.CODE='CTP_OIL_TCKT_TOTAL'
+and date_format(a.occur_date,'%Y/%m/01')=date_format($P{begin_date},'%Y/%m/01')) c26,
+
+(select ifnull(sum(a.FL_DATA_GRS_VOL),0)
+from flow_data_value a, flow b
+where a.flow_id=b.id and b.CODE='CTP_REINJECTED_GAS'
+and date_format(a.occur_date,'%Y/%m/01')=date_format($P{begin_date},'%Y/%m/01')) c32,
+
+(select ifnull(sum(a.FL_DATA_GRS_VOL),0)
+from flow_data_value a, flow b
+where a.flow_id=b.id and b.CODE='CTP_NT_GAS_SALE_TOT'
+and date_format(a.occur_date,'%Y/%m/01')=date_format($P{begin_date},'%Y/%m/01')) c33,
+
+(select ifnull(sum(a.FL_DATA_GRS_VOL),0)
+from flow_data_value a, flow b
+where a.flow_id=b.id and b.CODE='CTP_COND_GE'
+and date_format(a.occur_date,'%Y/%m/01')=date_format($P{begin_date},'%Y/%m/01')) c34,
+
+(select ifnull(sum(a.FL_DATA_GRS_VOL),0)
+from flow_data_value a, flow b
+where a.flow_id=b.id and b.CODE in ('CTP_FUEL_GAS','ESS_FUEL_GAS')
+and date_format(a.occur_date,'%Y/%m/01')=date_format($P{begin_date},'%Y/%m/01')) c35,
+
+(select ifnull(sum(a.FL_DATA_GRS_VOL),0)
+from flow_data_value a, flow b
+where a.flow_id=b.id and b.CODE='CTP_GAS_FLARED'
+and date_format(a.occur_date,'%Y/%m/01')=date_format($P{begin_date},'%Y/%m/01')) c36,
+
+(select ifnull(sum(a.FL_DATA_GRS_VOL),0)
+from flow_data_value a, flow b
+where a.flow_id=b.id and b.CODE='ESS_GAS_FLARED'
+and date_format(a.occur_date,'%Y/%m/01')=date_format($P{begin_date},'%Y/%m/01')) c37,
+
+(select ifnull(sum(a.FL_DATA_GRS_VOL),0)
+from flow_data_value a, flow b
+where a.flow_id=b.id and b.CODE='CTP_REMOTE_FLARE_GAS'
+and date_format(a.occur_date,'%Y/%m/01')=date_format($P{begin_date},'%Y/%m/01')) c38,
+0 c39,
+(select ifnull(sum(a.FL_DATA_GRS_VOL),0)
+from flow_data_value a, flow b
+where a.flow_id=b.id and b.CODE='CTP_GL_TOTAL'
+and date_format(a.occur_date,'%Y/%m/01')=date_format($P{begin_date},'%Y/%m/01')) c42,
+    
+(select ifnull(sum(a.FL_DATA_GRS_ENGY)/1000,0)
+from flow_data_value a, flow b
+where a.flow_id=b.id and b.CODE='MER_TOT_REDIR_GAS'
+and date_format(a.occur_date,'%Y/%m/01')=date_format($P{begin_date},'%Y/%m/01')) c45,
+
+(select ifnull(sum(a.FL_DATA_GRS_ENGY),0)
+from flow_data_value a, flow b
+where a.flow_id=b.id and b.CODE='CTP_NT_GAS_SALE_TOT'
+and date_format(a.occur_date,'%Y/%m/01')=date_format($P{begin_date},'%Y/%m/01')) c46e
+) x) x) x) x]]>
+	</queryString>
+	<field name="day1" class="java.lang.String"/>
+	<field name="day2" class="java.lang.String"/>
+	<field name="c9" class="java.math.BigDecimal"/>
+	<field name="c10" class="java.math.BigDecimal"/>
+	<field name="c11" class="java.math.BigDecimal"/>
+	<field name="c12" class="java.math.BigDecimal"/>
+	<field name="c14" class="java.math.BigDecimal"/>
+	<field name="c15" class="java.math.BigDecimal"/>
+	<field name="c16" class="java.math.BigDecimal"/>
+	<field name="c17" class="java.math.BigDecimal"/>
+	<field name="c19" class="java.math.BigDecimal"/>
+	<field name="c22" class="java.lang.Long"/>
+	<field name="c23" class="java.lang.Long"/>
+	<field name="c24" class="java.math.BigDecimal"/>
+	<field name="c25" class="java.math.BigDecimal"/>
+	<field name="c26" class="java.math.BigDecimal"/>
+	<field name="c27" class="java.math.BigDecimal"/>
+	<field name="c28" class="java.math.BigDecimal"/>
+	<field name="c29" class="java.math.BigDecimal"/>
+	<field name="c32" class="java.math.BigDecimal"/>
+	<field name="c33" class="java.math.BigDecimal"/>
+	<field name="c34" class="java.math.BigDecimal"/>
+	<field name="c35" class="java.math.BigDecimal"/>
+	<field name="c36" class="java.math.BigDecimal"/>
+	<field name="c37" class="java.math.BigDecimal"/>
+	<field name="c38" class="java.math.BigDecimal"/>
+	<field name="c39" class="java.lang.Long"/>
+	<field name="c40" class="java.math.BigDecimal"/>
+	<field name="c42" class="java.math.BigDecimal"/>
+	<field name="c45" class="java.math.BigDecimal"/>
+	<field name="c46" class="java.math.BigDecimal"/>
+	<field name="d9" class="java.math.BigDecimal"/>
+	<field name="d10" class="java.math.BigDecimal"/>
+	<field name="d11" class="java.math.BigDecimal"/>
+	<field name="d12" class="java.math.BigDecimal"/>
+	<field name="d14" class="java.math.BigDecimal"/>
+	<field name="d15" class="java.math.BigDecimal"/>
+	<field name="d16" class="java.math.BigDecimal"/>
+	<field name="d17" class="java.math.BigDecimal"/>
+	<field name="d19" class="java.math.BigDecimal"/>
+	<field name="d22" class="java.math.BigDecimal"/>
+	<field name="d23" class="java.math.BigDecimal"/>
+	<field name="d24" class="java.math.BigDecimal"/>
+	<field name="d25" class="java.math.BigDecimal"/>
+	<field name="d26" class="java.math.BigDecimal"/>
+	<field name="d27" class="java.math.BigDecimal"/>
+	<field name="d28" class="java.math.BigDecimal"/>
+	<field name="d32" class="java.math.BigDecimal"/>
+	<field name="d33" class="java.math.BigDecimal"/>
+	<field name="d34" class="java.math.BigDecimal"/>
+	<field name="d35" class="java.math.BigDecimal"/>
+	<field name="d36" class="java.math.BigDecimal"/>
+	<field name="d37" class="java.math.BigDecimal"/>
+	<field name="d38" class="java.math.BigDecimal"/>
+	<field name="d39" class="java.math.BigDecimal"/>
+	<field name="d40" class="java.math.BigDecimal"/>
+	<field name="d42" class="java.math.BigDecimal"/>
+	<variable name="report_timing" class="java.lang.String" resetType="None">
+		<variableExpression><![CDATA[("January,February,March,April,May,June,July,August,September,October,November,December".split(",")[($P{begin_date}).getMonth()])+" "+(($P{begin_date}).getYear()-100+2000)]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="98" splitType="Stretch">
+			<staticText>
+				<reportElement x="20" y="20" width="530" height="30" uuid="73b2ce5c-8e53-4ac3-b1a5-b4a8a54ad993">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="14" isBold="true" pdfFontName="Helvetica-Bold" pdfEncoding=""/>
+				</textElement>
+				<text><![CDATA[Marine Production Summary Report]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="20" y="50" width="80" height="16" uuid="eea15840-3bc5-4b86-bb80-e23dc6946b67"/>
+				<textElement>
+					<font size="11" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Report Period: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="100" y="50" width="380" height="16" uuid="11bb2194-ff58-4948-89b5-a084c700d3cf"/>
+				<textElement>
+					<font size="11" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{report_timing}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="410" y="20" width="140" height="50" uuid="12b2000f-8bd2-48db-8871-7e93e58bdd9e"/>
+				<imageExpression><![CDATA[$P{ROOT_DIR}+"/res/cplogo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="20" y="76" width="260" height="16" uuid="98173485-fad1-44cf-9a15-a76bf4d185b1"/>
+				<textElement>
+					<font size="12" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Production, Sales & Gas Injection]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="673" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="20" y="10" width="390" height="16" forecolor="#FFFFFF" backcolor="#F07622" uuid="5aef68d5-4b88-44c2-8976-ad5689c4faa1"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Crude Oil & Condensate Statistics]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="410" y="10" width="70" height="16" forecolor="#FFFFFF" backcolor="#F07622" uuid="f7475c6e-3ada-4f43-b398-f969c3d0d169"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[kL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="480" y="10" width="70" height="16" forecolor="#FFFFFF" backcolor="#F07622" uuid="b273e5f3-75f6-4960-9076-3c7bc906b6a0"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[bbls]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="20" y="26" width="530" height="16" forecolor="#000000" backcolor="#F9C7A6" uuid="a3739ac4-a2cd-4471-b1fb-b9d38b9d62ef"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Metered Production]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="20" y="42" width="390" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="ed3082ee-c794-4f1e-a3ea-3cffad4a8fb2"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Oil Produced to CTP]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="42" width="70" height="16" uuid="57530292-1e63-41cf-909e-fa3146b40bd5"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c9}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c9})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="42" width="70" height="16" uuid="78c70712-03e6-4092-b990-e71b22671c7f"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d9}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d9})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="20" y="58" width="390" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="d77c97a3-da85-44bb-b301-0b4bc0f56451"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Oil Produced to ESS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="58" width="70" height="16" uuid="92909c0a-fe13-4d0f-8146-3603fc34e54a"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c10}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c10})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="58" width="70" height="16" uuid="1f613b14-4186-4d32-934c-f39b522f8acd"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d10}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d10})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="20" y="74" width="390" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="766f93c7-a908-438c-9346-3c899c93f922"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Oil Produced to Remote Tank 	]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="74" width="70" height="16" uuid="4802422c-2d79-4cb9-93a0-ae5acdc1edd7"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c11}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c11})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="74" width="70" height="16" uuid="42420104-aba3-4d6b-96e2-2e31b6d48439"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d11}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d11})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="20" y="90" width="390" height="16" forecolor="#000000" backcolor="#F0F0F0" uuid="d85c028d-8a1a-48a7-b766-d83599317dea"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Metered Crude Oil Production ]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="410" y="90" width="70" height="16" backcolor="#F0F0F0" uuid="1e73d428-4e5b-4f2b-b7b2-e160a391fccd"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c12}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c12})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="480" y="90" width="70" height="16" backcolor="#F0F0F0" uuid="ba57ddb1-9068-4321-8b78-1ff2a3dc3391"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d12}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d12})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="20" y="106" width="390" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="8fc8067a-9e1f-4f50-a9e7-514f36ebbbb7"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Condensate Allocated to Gas Produced from CTP Production]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="106" width="70" height="16" uuid="3ea5a607-671e-46bc-97da-7f70c99aa2a4"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c14}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c14})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="106" width="70" height="16" uuid="d89fabee-5b0c-4943-88c3-102329c6bae5"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d14}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d14})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="20" y="122" width="390" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="564922b7-e7ac-4be4-bb80-35c9a95cf59f"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Condensate Allocated to Gas Produced from ESS Production]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="122" width="70" height="16" uuid="04cfd8d5-edd5-4e89-b747-e1c6f3e5ac02"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c15}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c15})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="122" width="70" height="16" uuid="422514f4-b736-48c1-ae2f-9f9fa444ced6"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d15}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d15})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="20" y="138" width="390" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="1cd5bb29-dbf4-4c70-b9fc-9bf87f0c8290"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Metered Condensate Production ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="138" width="70" height="16" uuid="352c833c-cb0e-4624-b345-b5ac4c4df8a7"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c16}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c16})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="138" width="70" height="16" uuid="ed5f29b8-992a-46db-979e-946b3d90b759"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d16}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d16})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="20" y="154" width="390" height="16" forecolor="#000000" backcolor="#E3E3E3" uuid="af2cfb96-0b83-4361-a754-10ef18fc7ae7"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Total Metered Crude & Condensate Production ]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="410" y="154" width="70" height="16" backcolor="#E3E3E3" uuid="cc87aba7-3c02-4237-a7ed-d7764e841d8e"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c17}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c17})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="480" y="154" width="70" height="16" backcolor="#E3E3E3" uuid="72d39c9d-e0a5-4a92-9392-4d9b97a2c322"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d17}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d17})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="20" y="170" width="390" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="2f2ad1ca-eda4-4696-8ab2-c4c79883bc0d"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Daily average Crude & Condensate Production ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="170" width="70" height="16" uuid="098e5df8-3957-4681-87d0-1bdd6f431476"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c19}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c19})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="170" width="70" height="16" uuid="326d19ef-bf8e-4643-8ac8-d9484e7cfc46"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d19}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d19})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="20" y="186" width="530" height="16" forecolor="#000000" backcolor="#F9C7A6" uuid="d4c1c93c-14c1-4263-9b05-92abbbda3fc6"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Stock and Shipping]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="20" y="202" width="390" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="60617888-cd27-4dd7-843d-e2ec934d0d50"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Fuel & Own Use ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="202" width="70" height="16" uuid="314b077f-5168-45c7-8303-155566b9d199"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c22}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c22})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="202" width="70" height="16" uuid="42c1096e-e3a6-4220-9f98-c38010615f3e"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d22}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d22})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="20" y="218" width="390" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="9d94e402-7260-489a-9bde-7b8cd5ea4b0c"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Shipped to Pipeline ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="218" width="70" height="16" uuid="2bcaa64c-76ea-46c1-9021-c916d7cb7b32"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c23}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c23})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="218" width="70" height="16" uuid="6c0d9921-a381-46e6-b34e-ac36df08054d"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d23}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d23})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="20" y="234" width="390" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="b04eb4ec-ab81-4ec5-9471-664e29603840"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Opening Stock Crude & Condensate]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="234" width="70" height="16" uuid="9c1dcc4e-6743-474a-8ce8-7185b74deeaf"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c24}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c24})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="234" width="70" height="16" uuid="373d59e7-c4bc-4068-9120-4b0ded8b8563"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d24}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d24})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="20" y="250" width="390" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="1d1d4c86-39be-469a-ad9b-55356f732ae0"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Closing Stock Crude & Condensate]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="250" width="70" height="16" uuid="ba7080be-fe04-4ae1-9fb8-c866a2dae16e"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c25}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c25})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="250" width="70" height="16" uuid="57be6dce-7d1a-4b39-8273-b2738f405205"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d25}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d25})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="20" y="266" width="390" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="1ce1858e-6202-487c-91ed-45fb28835850"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Truck Load Out]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="266" width="70" height="16" uuid="8e510b7c-5212-4bc6-b324-79d94f0d88b0"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c26}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c26})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="266" width="70" height="16" uuid="8da49cc0-d930-4917-8ea6-34d892bdd321"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d26}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d26})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="20" y="282" width="390" height="16" forecolor="#000000" backcolor="#E3E3E3" uuid="40500c29-0371-4070-b208-3850b55c279f"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Total Calculated Production from Stock Levels and Trucking]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="410" y="282" width="70" height="16" backcolor="#E3E3E3" uuid="faaf79de-e4f0-414e-a78c-64c76da4f8b7"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c27}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c27})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="480" y="282" width="70" height="16" backcolor="#E3E3E3" uuid="b62baeb1-6dff-46a8-8c04-e2e1ffce5754"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d27}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d27})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="20" y="298" width="390" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="5ff95f43-f3d8-433b-9995-dcada235ccff"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Variance]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="298" width="70" height="16" uuid="6e4e4afe-431c-4ab0-8973-b17a2b01b46c"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c28}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c28})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="298" width="70" height="16" uuid="36f4e7fc-cd4f-4331-ba5c-8b5032b97ac9"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d28}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d28})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="20" y="314" width="390" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="9279968e-2b9e-4990-8402-538a9d15e1f6"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Variance (%)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="314" width="70" height="16" uuid="2eb27b80-5bb4-4df2-bd30-6865a8c13189"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c29}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c29})+"%"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="20" y="366" width="390" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="2d397479-2052-42a8-985b-61b7010aadc7"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Reinjection]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="366" width="70" height="16" uuid="216131ee-d9b8-4efb-8379-f51a7dc7ae5c"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c32}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c32})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="366" width="70" height="16" uuid="01d9db68-8a75-48a9-a5fc-7c47b29a2061"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d32}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d32})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="20" y="382" width="390" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="e8a0a345-3bb9-42aa-b1f0-69a44dbdad09"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Sales Gas to Pipeline]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="382" width="70" height="16" uuid="429b1222-be07-4870-8448-69e5684d29bf"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c33}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c33})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="382" width="70" height="16" uuid="ebad43c8-24c6-4eb8-b459-e23c386be6eb"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d33}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d33})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="462" width="70" height="16" uuid="e001773b-ffd0-454a-a716-7d2dffd4878a"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d38}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d38})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="478" width="70" height="16" uuid="a4e59d03-5455-4f33-a635-39c56b56c315"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c39}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c39})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="410" y="494" width="70" height="16" backcolor="#E3E3E3" uuid="dcab4b2f-7b20-4dc5-8642-d4bbfc4ff4f7"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c40}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c40})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="398" width="70" height="16" uuid="30979f58-1391-4bbc-8e9b-9cef3753daee"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c34}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c34})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="20" y="398" width="390" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="382f013b-607c-4a59-b75b-be2a940e28c6"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Condensate Gas Equivalent ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="480" y="446" width="70" height="16" uuid="8b7d6f24-fb86-4fb1-8b3a-c79c35fca4bc"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d37}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d37})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="20" y="430" width="390" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="a4d09a22-460d-4125-99e6-f8dc46c0d6f0"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[CTP Flared and Vented ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="480" y="478" width="70" height="16" uuid="f4fdc6d6-2b53-4df2-9526-5cd6f4fa538a"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d39}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d39})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="446" width="70" height="16" uuid="06c3addf-bf15-4324-8190-ad7398922c9a"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c37}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c37})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="462" width="70" height="16" uuid="a942df21-4284-471f-8cee-261c17766c28"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c38}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c38})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="430" width="70" height="16" uuid="6acddeee-0eee-4ec7-98cd-40acaf531e11"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d36}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d36})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="480" y="494" width="70" height="16" backcolor="#E3E3E3" uuid="f41472ad-8f58-47fc-93d5-7ef8a5665933"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d40}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d40})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="430" width="70" height="16" uuid="88d9da94-449b-4b38-aba5-5ca0205b8abf"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c36}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c36})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="398" width="70" height="16" uuid="88b859be-5120-4da8-b842-d58b0e8bb992"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d34}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d34})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="410" y="414" width="70" height="16" uuid="96182ee2-99d5-4534-840a-98a4bc8c60be"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c35}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c35})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="414" width="70" height="16" uuid="a1de0536-33d2-4ed5-9604-3a52f47fd1b8"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d35}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d35})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="20" y="446" width="390" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="af6e3a2a-3bc1-43a8-b7a2-2c909057e1ff"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[ESS Flared and Vented ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="20" y="462" width="390" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="ae5d72c4-097a-4796-940a-88b04ac77f80"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Remotely Flared and Vented ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="20" y="478" width="390" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="5c1a0764-81f9-4be7-aaaa-85f553abdd1b"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Remotely Flared and Vented Lift Gas	]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="20" y="414" width="390" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="e2e1a577-3f49-4283-8d6e-6fceae1e4f86"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Fuel & Instrument]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="20" y="494" width="390" height="16" forecolor="#000000" backcolor="#E3E3E3" uuid="de6ff9e7-5af0-4f6a-9365-fb6e35437eba"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Total Gas Production]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="20" y="510" width="390" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="92bde48a-65e2-43c8-bdce-2672276de5d2"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Gas Used for Gas Lift]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="510" width="70" height="16" uuid="4e25566a-1c02-4db3-ba05-7e2042c863de"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c42}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c42})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="510" width="70" height="16" uuid="57c3c662-a1e4-46c7-bd51-050b486d363d"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d42}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{d42})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="20" y="556" width="390" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="846d53b0-d2a9-40e0-b965-ad5a33ae03fb"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Gas Sales (TJ)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="556" width="70" height="16" uuid="2cb31793-2610-4abe-9ba1-abb27b6b874e"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c45}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c45})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="20" y="572" width="390" height="16" forecolor="#000000" backcolor="#FFFFFF" uuid="d3825dfc-99c8-4475-891e-68ba0d759a51"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Gross Heating Value (MJ/sm3)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="410" y="572" width="70" height="16" uuid="39f3738f-7fea-4fdd-b9f3-586fd9b9b44c"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{c46}==null?"":new java.text.DecimalFormat("#,##0.00").format($F{c46})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="20" y="540" width="460" height="16" forecolor="#000000" backcolor="#F9C7A6" uuid="af692d24-593f-4479-abf1-a87be97e3db3"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="10" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Sales Quantities]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="20" y="350" width="390" height="16" forecolor="#FFFFFF" backcolor="#F07622" uuid="86563882-2e2e-4f5a-a98c-618ce624291e"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="11" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Gas Statistics]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="410" y="350" width="70" height="16" forecolor="#FFFFFF" backcolor="#F07622" uuid="f74cb649-60e1-4275-9cd3-853e30b51ecb"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[sm3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="480" y="350" width="70" height="16" forecolor="#FFFFFF" backcolor="#F07622" uuid="cec73666-6c65-4414-87a8-25403d60a869"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[ MMscf]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

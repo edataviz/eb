@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html manifest="eb.manifest">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<link rel="apple-touch-icon" href="image/ebhome.png" />
+	<link rel="apple-touch-startup-image" href="image/home.png" />
+	<meta name="apple-mobile-web-app-title" content="Data Capture">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+	<script src="js/config.js"></script>
+	<script src="js/utils.js"></script>
+	<script src="js/main.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body onload="">
+<script>
+function beginApp(){
+	hideWaiting();
+	checkDefaultSettingValues();
+	/*
+	if(isParamNotSet('downloaded')){
+		checkLoginTo('download configurations','download');
+	}
+	*/
+}
+
+(function(){
+			var webappCache = window.applicationCache;
+			var cacheItemsCount = 28;
+			var count = 0;
+			function noupdateCache() {
+				//log("No update to cache found");
+				beginApp();
+			}
+			function doneCache() {
+				//log("Cache has finished downloading");
+				beginApp();
+			}
+			function progressCache() {
+				count++;
+				if(count==1)
+					showWaiting('Downloading application... <span id="cacheCount"></span>', true);
+				$("#cacheCount").html(Math.round(100*count/cacheItemsCount)+'%');
+				//log("Downloading cache...");
+			}
+			function updateCache() {
+				webappCache.swapCache();
+				//log("Cache has been updated due to a change found in the manifest");
+				beginApp();
+			}
+			function errorCache() {
+				//alert("You're either offline or something has gone horribly wrong.");
+				beginApp();
+			}
+			webappCache.addEventListener("progress", progressCache, false);
+			webappCache.addEventListener("cached", doneCache, false);
+			webappCache.addEventListener("noupdate", noupdateCache, false);
+			webappCache.addEventListener("updateready", updateCache, false);
+			webappCache.addEventListener("error", errorCache, false);
+		})();
+</script>	
+
+    <div data-role="page">
+        <div data-role="header" data-position="fixed">
+            <h1>DATA CAPTURE</h1>
+        </div>
+		
+		<img class="logo">
+
+        <div data-role="main" class="ui-content">
+			<a href="#" data-icon="grid" onclick="window.location.assign('routes.html');" class="ui-btn" style="height:50px;line-height:50px">ROUTES</a>
+			<a href="#" data-icon="arrow-d" onclick="downloadData();" class="ui-btn">DOWNLOAD CONFIGURATIONS</a>
+			<a href="#" data-icon="arrow-u" onclick="uploadData();" class="ui-btn">UPLOAD DATA</a>
+			<a href="#" data-icon="delete" onclick="clearData();" class="ui-btn">CLEAR DATA</a>
+<br>
+			<a href="#" data-icon="gear" onclick="window.location.assign('settings.html');" class="ui-btn">SETTINGS</a>
+			<!-- <a href="#" class="ui-btn" onclick="logout()">LOG OUT</a> -->
+<script>
+var v;
+v=readParameter('username');
+if(v==null || v==""){
+	document.write('<br><a href="#" class="ui-btn" onclick="window.location.assign(\'login.html\')">LOGIN</a>');
+	//checkLoginTo('','');
+}
+else document.write('<br><a href="#" class="ui-btn" onclick="logout()">LOGOUT ('+v+')</a>');
+
+v=readParameter('showBack');
+if(v==1 || v=='1') {
+	document.write('<br><a href="#" class="ui-btn" onclick="window.history.back();">BACK</a>');
+	writeParameter('showBack',0);
+}
+</script>
+        </div>
+
+        <div data-role="footer" class="footer">
+            <h1>@Copyright: --------</h1>
+        </div>
+    </div>
+
+</body>
+
+</html>

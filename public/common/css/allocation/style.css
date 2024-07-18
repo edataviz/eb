@@ -1,0 +1,55 @@
+@charset "utf-8";
+/* CSS Document */
+
+.ui-icon {display: inline-flex; margin-left: 12;cursor:pointer}
+#bodyJobsList tr:hover{background-color:#D2D2D2}
+#bodyJobsList tr:active {background-color:rgb(157, 197, 255)}
+.chk_box {text-align:left; padding-left:20px;}
+.chk_phase{display:block}
+.current_job{background-color:#d8ebff;color:#378de5}
+
+.fixed{
+	font-size:10px;
+	margin-right:8px;
+}
+.chk_fixed{
+	margin-right:12px;
+}
+#dialog_edit_condition label,#dialog_edit_condition input { display:block; }
+#dialog_edit_condition input.text, #dialog_edit_condition select { margin-bottom:2px; width:100%; padding: .4em; }
+#dialog_edit_condition fieldset { padding:0; border:0; margin-top:2px; }
+.brc_out {border-radius:4px;border:1px solid #888888;background:#eeeeee;padding:6px 0px 6px 0px;margin:2px;}
+.brc_x {cursor:pointer;border-radius:4px;border:1px solid #888888;background:#bbbbbb;margin:1px;padding:4px 8px 4px 8px}
+#MySplitter {
+	/* height: 300px; */
+	width: 100%;
+	border: 0px solid #bbbbbb;
+	/* No padding allowed */
+}
+#TopPane {
+	overflow: auto;
+	height: 200px;
+	min-height: 100px;
+	border-style:solid;
+	border-color:#bbbbbb;
+	border-width: 1px 1px 0px 1px;
+	box-sizing: border-box;
+}
+#BottomPane {
+	min-height: 100px;
+	overflow: auto;
+	border-style:solid;
+	border-color:#bbbbbb;
+	border-width: 0px 1px 1px 1px;
+	box-sizing: border-box;
+	height: 250px;
+}
+#MySplitter .hsplitbar {
+	height: 8px;
+	background: #f0f0f0;
+	border: 1px solid #bbbbbb;
+	box-sizing: border-box;
+}
+.tab_list_table thead tr {height:35px}
+.tab_list_table thead td {border-bottom:1px solid #dddddd}
+.tab_list_div {height:calc(100% - 40px);overflow:auto}

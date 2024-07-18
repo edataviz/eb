@@ -1,0 +1,6 @@
+@font-face {
+  font-family: 'Terminal Dosis';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Dosis Regular'), local('Dosis-Regular'), url(http://fonts.gstatic.com/s/terminaldosis/v7/_IcvjW_kWHsIHjjUsLbdpOTgmCqXnlFlkSe8HoXJthk.woff2) format('woff2');
+}

@@ -1,0 +1,80 @@
+.box-config-expression {
+    padding: 20px!important;
+    padding-bottom: 0!important;
+}
+
+.box-config-expression [value-expression] {
+    margin-top: 10px!important;
+    height: 100px!important;
+}
+
+.box-config-expression form {
+    margin-bottom: 20px;
+}
+
+.field.select-object, .field.select-attribute {
+    padding-left: 0!important;
+}
+.field.select-objecttype, .field.select-datasource {
+    padding-right: 0!important;
+}
+#filter-selectObjectType, #filter-selectDataSource {
+    border-radius: 4px 0 0 4px;
+}
+#filter-selectObject, #filter-selectAttribute {
+    border-radius: 0 4px 4px 0;
+    border-left: 0;
+}
+
+#filter-selectFacility {
+    width: 150px;
+}
+#filter-selectObjectType {
+    width: 137px;
+}
+#filter-selectObject {
+    width: 435px;
+}
+#filter-selectDataSource, #filter-selectAllocType, #filter-selectPlanType, #filter-selectForecastType {
+    width: 300px;
+}
+#filter-selectAttribute {
+    width: 435px;
+}
+#filter-selectEventType {
+    width: 153px;
+}
+#filter-selectFlowPhase {
+    width: 135px;
+}
+.dialog-config .fields.row-1 .ui.selection.dropdown .menu {
+	max-height: 300px;
+}
+.dialog-config .fields.row-2 .ui.selection.dropdown .menu {
+	max-height: 240px;
+}
+.dialog-config .fields.row-3 .ui.selection.dropdown .menu {
+	max-height: 160px;
+}
+.box-config-expression .chk-tag {
+    position: absolute;
+    right: 0;
+    top: -8px;
+}
+
+[box-auto-refresh] {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+}
+[box-auto-refresh] label {
+    margin: 5px;
+    font-size: .92857143em;
+    font-weight: bold;
+}
+[box-auto-refresh] .ui.dropdown {
+    width: 120px;
+}
+[box-auto-refresh] .ui.dropdown .menu {
+    max-height: 120px;
+}

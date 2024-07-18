@@ -1,0 +1,44 @@
+<mxEditor>
+	<ui>
+		<resource basename="/resources/mxApplication"/>
+	</ui>
+	<mxDefaultPopupMenu as="popupHandler">
+		<add as="Details" action="actionDetails" if="validRoot"/> -->
+	</mxDefaultPopupMenu>
+	<Array as="actions">
+		<add as="actionDetails"><![CDATA[
+			function (editor, cell)
+			{
+				cell = cell || editor.graph.getSelectionCell();
+				
+				if (cell == null)
+				{
+					cell = editor.graph.getCurrentRoot();
+
+					if (cell == null)
+					{
+						cell = editor.graph.getModel().getRoot();
+					}
+				}
+
+				if (cell != null)
+				{
+					var objects_details = cell.getAttribute('objects_details');
+					var objtype = cell.getAttribute('obj_type');
+
+					if (objects_details != null && objects_details.length > 0)
+					{
+						//show objects_details
+						parent.action_details(objects_details);
+					}
+					else if (objtype =="runner")
+
+					{
+						var id = cell.getAttribute('obj_id');
+						parent.editRunner(id);
+					}
+				}
+			}
+		]]></add>
+	</Array>
+</mxEditor>

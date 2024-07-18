@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html manifest="eb.manifest">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+    <script src="js/jquery-1.7.2.min.js"></script>
+    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+	<script src="js/utils.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+    <div data-role="page">
+        <div data-role="header" data-position="fixed">
+            <h1>DATA CAPTURE</h1>
+        </div>
+		
+		<img class="logo">
+		
+		<div class="top_menu" onclick="click_menu(this)">
+			<div class="menu_item" id="item1"></div>
+			<div class="menu_item" id="item2"></div>
+			<div class="menu_item" id="item3"></div>
+		</div>
+        <div data-role="main" class="ui-content">
+		<h3>SETTINGS</h3>
+			Energy Builder server address<!-- (eg. <span onclick="setEgValue(this)">https://energybuilder.co</span>) -->
+			<input type="text" data-inline="true" id="txtServer" value="">
+			<fieldset data-role="controlgroup" data-type="horizontal">
+				<legend>Data capture type</legend>
+				<input type="radio" name="dc_data_type" id="dc_data_type_fdc" value="fdc" checked="checked">
+				<label for="dc_data_type_fdc">FDC Value</label>
+				<input type="radio" name="dc_data_type" id="dc_data_type_std" value="std">
+				<label for="dc_data_type_std">Standard Value</label>
+			</fieldset>
+			<label>Days to load history data</label>
+			<input type="number" id="txtDays" value="">
+			<br><br>
+			<a href="#" class="ui-btn" onclick="saveSettings();">SAVE</a>
+			<a href="#" class="ui-btn" onclick="window.location.assign('main.html')">CANCEL</a>
+        </div>
+        <div data-role="footer" class="footer">
+            <h1>@Copyright: --------</h1>
+        </div>
+    </div>
+<script>
+function setEgValue(o){
+	$('#txtServer').val($(o).html());
+}
+function saveSettings(){
+	writeParameter('dc_data_type',$("input[name='dc_data_type']:checked"). val());
+	writeParameter('server',$('#txtServer').val());
+	writeParameter('days',$('#txtDays').val());
+	window.location.assign('main.html');
+}
+checkDefaultSettingValues();
+$("#txtServer").val(readParameter('server'));
+$("#txtDays").val(readParameter('days'));
+$("input[name=dc_data_type][value=" + readParameter('dc_data_type') + "]").attr('checked', 'checked');
+</script>
+</body>
+</html>

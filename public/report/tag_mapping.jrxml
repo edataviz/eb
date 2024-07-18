@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2016-02-25T21:57:36 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Well_summary" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="13a397aa-fce7-40fe-b679-f115a7b2ae9c">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter "/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="begin_date" class="java.util.Date">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="end_date" class="java.util.Date">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="facility_id" class="java.lang.Integer">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="ROOT_DIR" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{ROOT_DIR}+"/wellsummary/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="report_time" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select a.TAG_ID,b.NAME OBJECT_NAME,a.TABLE_NAME,a.COLUMN_NAME,c.NAME EVENT_TYPE,d.NAME FLOW_PHASE,s.NAME SYSTEM_NAME,date_format(a.BEGIN_DATE,'%d/%m/%Y') BEGIN_DATE,t.NAME OBJECT_TYPE
+from INT_TAG_MAPPING a,FLOW b,CODE_EVENT_TYPE c,CODE_FLOW_PHASE d,INT_SYSTEM s,INT_OBJECT_TYPE t
+where a.OBJECT_ID=b.ID and a.OBJECT_TYPE=1 and a.EVENT_TYPE=c.ID and a.FLOW_PHASE=d.ID and a.SYSTEM_ID=s.ID and a.OBJECT_TYPE=t.ID	
+union all
+select a.TAG_ID,b.NAME OBJECT_NAME,a.TABLE_NAME,a.COLUMN_NAME,c.NAME EVENT_TYPE,d.NAME FLOW_PHASE,s.NAME SYSTEM_NAME,date_format(a.BEGIN_DATE,'%d/%m/%Y') BEGIN_DATE,t.NAME OBJECT_TYPE
+from INT_TAG_MAPPING a,ENERGY_UNIT b,CODE_EVENT_TYPE c,CODE_FLOW_PHASE d,INT_SYSTEM s,INT_OBJECT_TYPE t
+where a.OBJECT_ID=b.ID and a.OBJECT_TYPE=2 and a.EVENT_TYPE=c.ID and a.FLOW_PHASE=d.ID and a.SYSTEM_ID=s.ID and a.OBJECT_TYPE=t.ID
+union all
+select a.TAG_ID,b.NAME OBJECT_NAME,a.TABLE_NAME,a.COLUMN_NAME,c.NAME EVENT_TYPE,d.NAME FLOW_PHASE,s.NAME SYSTEM_NAME,date_format(a.BEGIN_DATE,'%d/%m/%Y') BEGIN_DATE,t.NAME OBJECT_TYPE
+from INT_TAG_MAPPING a,TANK b,CODE_EVENT_TYPE c,CODE_FLOW_PHASE d,INT_SYSTEM s,INT_OBJECT_TYPE t
+where a.OBJECT_ID=b.ID and a.OBJECT_TYPE=3 and a.EVENT_TYPE=c.ID and a.FLOW_PHASE=d.ID and a.SYSTEM_ID=s.ID and a.OBJECT_TYPE=t.ID
+union all
+select a.TAG_ID,b.NAME OBJECT_NAME,a.TABLE_NAME,a.COLUMN_NAME,c.NAME EVENT_TYPE,d.NAME FLOW_PHASE,s.NAME SYSTEM_NAME,date_format(a.BEGIN_DATE,'%d/%m/%Y') BEGIN_DATE,t.NAME OBJECT_TYPE
+from INT_TAG_MAPPING a,STORAGE b,CODE_EVENT_TYPE c,CODE_FLOW_PHASE d,INT_SYSTEM s,INT_OBJECT_TYPE t
+where a.OBJECT_ID=b.ID and a.OBJECT_TYPE=4 and a.EVENT_TYPE=c.ID and a.FLOW_PHASE=d.ID and a.SYSTEM_ID=s.ID and a.OBJECT_TYPE=t.ID
+union all
+select a.TAG_ID,b.NAME OBJECT_NAME,a.TABLE_NAME,a.COLUMN_NAME,c.NAME EVENT_TYPE,d.NAME FLOW_PHASE,s.NAME SYSTEM_NAME,date_format(a.BEGIN_DATE,'%d/%m/%Y') BEGIN_DATE,t.NAME OBJECT_TYPE
+from INT_TAG_MAPPING a,EQUIPMENT b,CODE_EVENT_TYPE c,CODE_FLOW_PHASE d,INT_SYSTEM s,INT_OBJECT_TYPE t
+where a.OBJECT_ID=b.ID and a.OBJECT_TYPE=5 and a.EVENT_TYPE=c.ID and a.FLOW_PHASE=d.ID and a.SYSTEM_ID=s.ID and a.OBJECT_TYPE=t.ID
+]]>
+	</queryString>
+	<field name="TAG_ID" class="java.lang.String"/>
+	<field name="OBJECT_NAME" class="java.lang.String"/>
+	<field name="TABLE_NAME" class="java.lang.String"/>
+	<field name="COLUMN_NAME" class="java.lang.String"/>
+	<field name="EVENT_TYPE" class="java.lang.String"/>
+	<field name="FLOW_PHASE" class="java.lang.String"/>
+	<field name="SYSTEM_NAME" class="java.lang.String"/>
+	<field name="BEGIN_DATE" class="java.lang.String"/>
+	<field name="OBJECT_TYPE" class="java.lang.String"/>
+	<variable name="TAG_ID1" class="java.lang.Integer" resetType="Group" resetGroup="Group1" calculation="Count">
+		<variableExpression><![CDATA[$F{TAG_ID}]]></variableExpression>
+	</variable>
+	<group name="Group1" isReprintHeaderOnEachPage="true" keepTogether="true">
+		<groupExpression><![CDATA[$F{OBJECT_TYPE}]]></groupExpression>
+		<groupHeader>
+			<band height="31">
+				<textField>
+					<reportElement x="0" y="10" width="200" height="19" uuid="04430acd-1d06-4fda-a8ff-dbb8636342fb"/>
+					<textElement>
+						<font size="11" isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{OBJECT_TYPE}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="41">
+				<textField>
+					<reportElement x="0" y="10" width="260" height="20" uuid="07ce1889-6c7a-4edb-a8cd-0b041ab3b577"/>
+					<textElement>
+						<font isBold="true" pdfFontName="Helvetica-Bold"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{OBJECT_TYPE}+" total: "+$V{TAG_ID1}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="55" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="530" height="40" uuid="73b2ce5c-8e53-4ac3-b1a5-b4a8a54ad993">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Bottom">
+					<font fontName="SansSerif" size="18" pdfFontName="Helvetica-Bold" pdfEncoding=""/>
+				</textElement>
+				<text><![CDATA[Tag Mapping]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="730" y="17" width="70" height="26" forecolor="#FFFFFF" backcolor="#EF7521" uuid="a4b57de8-f838-4775-a566-6b2ae1da75bb"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[End Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="540" y="17" width="60" height="26" forecolor="#FFFFFF" backcolor="#EF7521" uuid="30f323ec-6353-44fd-828a-b4a4260fb501"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Flow Phase]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="250" y="17" width="110" height="26" forecolor="#FFFFFF" backcolor="#EF7521" uuid="8cf466a1-58dc-4856-a0e4-ec4291d95e91"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Table]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="17" width="140" height="26" forecolor="#FFFFFF" backcolor="#EF7521" uuid="841ffb1e-87a1-4a74-85e4-7f27d42314ab"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Tag]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="660" y="17" width="70" height="26" forecolor="#FFFFFF" backcolor="#EF7521" uuid="a27ea474-5514-43f1-a0ec-81bedbb6c7b7"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Begin Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="360" y="17" width="120" height="26" forecolor="#FFFFFF" backcolor="#EF7521" uuid="de20ddc5-c96d-4d91-954c-c0c82170422a"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Column]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="140" y="17" width="110" height="26" forecolor="#FFFFFF" backcolor="#EF7521" uuid="14178616-517b-4170-adf3-724c934deeb5"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Object Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="480" y="17" width="60" height="26" forecolor="#FFFFFF" backcolor="#EF7521" uuid="988b5a25-b6b8-4f3f-9765-6c7b497232b9"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[Event Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="600" y="17" width="60" height="26" forecolor="#FFFFFF" backcolor="#EF7521" uuid="43c74380-9319-4e7e-8010-238514cc0d52"/>
+				<box>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="true" pdfFontName="Helvetica-Bold"/>
+				</textElement>
+				<text><![CDATA[System]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="140" height="16" uuid="bca7379d-ef34-44c4-8488-877a00da7655">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TAG_ID}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="140" y="0" width="110" height="16" uuid="246d053a-f4fe-4f99-b6d7-b5b083ee971c"/>
+				<box leftPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OBJECT_NAME}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="250" y="0" width="110" height="16" uuid="99a7f090-e191-48d8-8382-3485bc351a7b"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TABLE_NAME}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="360" y="0" width="120" height="16" uuid="f5cd1352-2cfe-428e-9bbc-b236c26c993f"/>
+				<box leftPadding="3" rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COLUMN_NAME}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="480" y="0" width="60" height="16" uuid="5f8817dc-109b-4410-8c4b-dfcd7f421a93"/>
+				<box rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EVENT_TYPE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="540" y="0" width="60" height="16" uuid="4a1bc988-09a2-4135-9603-265d3a249b79"/>
+				<box rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FLOW_PHASE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="600" y="0" width="60" height="16" uuid="791b0608-e651-4896-8053-3813b70b046d"/>
+				<box rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SYSTEM_NAME}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="660" y="0" width="70" height="16" uuid="dc29973c-d815-40ca-bcf4-3baab805d3b1"/>
+				<box rightPadding="3">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BEGIN_DATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="730" y="0" width="70" height="16" uuid="904e0691-c863-4de8-a96c-66dcb75df97f"/>
+				<box leftPadding="3" rightPadding="0">
+					<topPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<leftPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<bottomPen lineWidth="1.0" lineColor="#B1B1B1"/>
+					<rightPen lineWidth="1.0" lineColor="#B1B1B1"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="19" splitType="Stretch"/>
+	</summary>
+</jasperReport>

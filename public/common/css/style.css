@@ -1,0 +1,593 @@
+@charset "utf-8";
+
+@font-face {
+	font-family: 'Open Sans';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Open Sans'), local('OpenSans'),
+		url(../../common/css/font/opensans.ttf) format('woff2');
+	unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC,
+		U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+* {
+	font-family: 'Open Sans', sans-serif;
+}
+
+.center_content {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button
+	{
+	font-family: 'Open Sans', sans-serif;
+	font-size: 10pt !important;
+}
+
+table td {
+	font-size: 9pt;
+	overflow: hidden;
+}
+
+div {
+	font-size: 9pt
+}
+
+input {
+	border: 1px solid #888
+}
+
+th {
+	font-size: 9pt;
+	text-align: left;
+}
+
+a, h2 a:hover, h3 a:hover {
+	color: #0000ff;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #0000ff;
+	text-decoration: underline;
+}
+
+input[type="button"],input[type="submit"], button {
+	background-color: #33b5e8;
+	display: inline-block;
+	border-radius: 3px;
+	cursor: pointer;
+	color: #ffffff;
+	font-size: 13px;
+	font-weight: bold;
+	padding: 2px 10px;
+	border: none;
+	text-decoration: none;
+	//text-transform: uppercase;
+	text-shadow: 0px 1px 0px #528ecc;
+	//min-width: 80px;
+	height: 30px;
+}
+
+input[type="button"]:hover,input[type="submit"]:hover, button:hover {
+	background-color: #44c7f4;
+}
+
+input[type="button"]:active, button:active {
+	position: relative;
+	top: 1px;
+}
+
+input[type="button"]:focus, button:focus {
+	outline: 0;
+}
+
+._numeric {
+	text-align: right
+}
+
+.function_title {
+	color: #378de5;
+	font-size: 16pt;
+	font-weight: 550;
+	margin-top: 15px;
+	margin-bottom: 5px;
+}
+
+.ui-dialog-title {
+	font-size: 10pt;
+	font-weight: bold;
+}
+
+.product_filter, .date_filter {
+	margin-right: 5px;
+	float: left;
+	margin-bottom: 5px;
+	background-color: #E6E6E6;
+	padding-right: 5px;
+	padding-left: 5px;
+
+}
+
+.filter, .date_input {
+	width: auto;
+	float: left;
+	padding: 1px;
+    max-width: 130px;
+}
+
+.date_input {
+	width: 120px;
+}
+
+.filter select , .date_input input {
+	margin-top: 2px;
+	font-size: 12px;
+	width: 100%;
+}
+
+#tabs,.clearBoth, #ebFilters_graph .CodeFlowPhase{
+	clear: both;
+}
+
+.input-append .ui-widget input {
+	/* width: 97px; */
+	/* height: 29px; */
+	width: 83%;
+}
+
+.editable-input {
+	width: auto;
+}
+
+.editInline {
+	background-clip: content-box;
+	background-color: rgba(66, 177, 230, 0.1);
+}
+
+.editable-clear-x {
+	right: 0%;
+}
+
+.input-medium {
+	width: 85%;
+}
+
+.dataTables_wrapper table {
+	margin: 0 auto;
+	width: 100%;
+	clear: both;
+	border-collapse: collapse;
+	table-layout: fixed;
+	word-wrap: break-word;
+}
+
+table.dataTable {
+	margin: 0px;
+}
+
+.headcol {
+	position: absolute;
+	width: 230px;
+	left: 0;
+	top: auto;
+	z-index: 100;
+	background-color: white;
+}
+
+.phase {
+	margin-right: 0px;
+	border: 1px solid #888888;
+	min-width: 42px;
+	text-align: center;
+	height: 13px;
+	line-height: 13px;
+	overflow: hidden;
+	padding: 1px;
+	float: right;
+	font-size: 8pt;
+	background: #bbb
+}
+
+.OIL, .Oil {
+	background: #FBD070;
+}
+
+.GAS, .Gas {
+	background: #FF9696;
+}
+
+.WTR, .W, .Water {
+	background: #62CEFB;
+}
+
+.CO2 {
+	background: rgb(181,230,29);
+}
+
+.PWR {
+	background: rgb(255,255,100);
+}
+
+.rootMain {
+	padding-left: 10px;
+}
+
+.eu .CodeReadingFrequency, .eu .CodeEventType, .eu .CodeFlowPhase, .eu .CodeAllocType
+	{
+	width: 115px;
+}
+
+.eustatus, .eventType {
+	color: #888888;
+	border: 1px solid #888888;
+	border-right:none;
+	padding: 1px;
+	height: 13px;
+	line-height: 13px;
+	float: right;
+	font-size: 8pt;
+}
+
+ .eu .CodeAllocType {
+	display: none
+}
+
+.allocation {
+	width: 220px;
+	float: left;
+}
+
+.toolbarAction {
+	float: left;
+	margin-top: 3px;
+}
+
+.actionLink {
+	color: gray;
+	margin: 5px;
+    cursor: pointer;
+}
+
+.secondaryTable table.dataTable thead th, .secondaryTable table.dataTable thead td
+	{
+	padding: 10px;
+}
+
+.secondaryTable table.dataTable tfoot th, .secondaryTable table.dataTable tfoot td
+	{
+	padding: 2px;
+}
+
+.secondaryTable .UOM, .secondaryTable .Quantity {
+	width: 100px;
+}
+
+#table_Deferment .THEOR_OIL_PERDAY,#table_Deferment .THEOR_OIL_MASS_PERDAY,#table_Deferment .THEOR_GAS_PERDAY,#table_Deferment .THEOR_WATER_PERDAY,
+#table_MisMeasurement .MMR_ACCUM_QTY_TODATE,#table_MisMeasurement .MMR_CORRECT_TODATE,#table_MisMeasurement .MMR_ACCUM_DIFF ,
+#table_PdCargoNomination .REQUEST_DATE, #table_PdCargoNomination .REQUEST_QTY , #table_PdCargoNomination .REQUEST_QTY_UOM {
+	background-clip: content-box;
+	background-color: yellow;
+}
+
+#table_Deferment .CALC_DEFER_OIL_VOL,#table_Deferment .CALC_DEFER_OIL_MASS,#table_Deferment .CALC_DEFER_GAS_VOL,#table_Deferment .CALC_DEFER_WATER_VOL,
+#table_MisMeasurement .MMR_ACCUM_QTY_TOTAL,#table_MisMeasurement .MMR_CORRECT_TOTAL,#table_MisMeasurement .MMR_TOTAL_DIFF
+ {
+	background-clip: content-box;
+	background-color: orange;
+}
+
+.firstColumn {
+	float: left;
+	height: 100%;
+	/* line-height: 100%; */
+}
+
+.extraFirstColumn {
+	float: right;
+	height: 100%;
+}
+
+.checkboxCell {
+	margin-left: 15px;
+}
+
+.dataTables_filter{
+    margin-top: 5px;
+}
+
+.current_job{background-color:#d8ebff;color:#378de5}
+
+#container_preos th {
+    white-space: normal;
+    /* padding: 1px 1px; */
+}
+
+#table_preos{
+	width: 150px;
+}
+.cellnumber {
+	text-align: right;
+	/* position: relative; */
+	overflow: hidden;
+}
+.editable-container{
+	/* float: right; */
+}
+#tabs_contents .ui-tabs-panel {
+   padding-bottom: 0;
+}
+
+.dataTables_filter label {
+   margin-bottom: 0;
+}
+
+.dataTables_filter input {
+	margin-bottom: 4px;
+}
+.dataTables_wrapper .dataTables_info {
+    clear: none;
+    margin-left: 5px;
+}
+
+#table_allocateplan,#table_allocateforecast {
+   width: 600px;
+   margin-left: 0px;
+   /* overflow: auto; */
+}
+#table_allocateplan thead th, #table_allocateplan_action thead th, 
+#table_allocateforecast thead th, #table_allocateforecast_action thead th{
+	padding: 10px 18px;
+	white-space: nowrap;
+	border-bottom: 1px solid #111111;
+}
+#table_allocateplan_action, #container_allocateplan,
+#table_allocateforecast_action, #container_allocateforecast,
+.extension-buttons{
+	float:left;
+}
+#cboLimit {
+	width: 70px;
+}
+#history_loading,
+#box_loading{
+	position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 1000;
+}
+
+.editable-extension {
+	/* background-image: url("./images/hist.png"); */
+    background-color: rgb(55, 141, 229);
+    padding: 4px;
+    margin-top: 3px;
+    margin-right: 5px;
+}
+
+#history_list a{
+	color: #0000ff;
+}
+
+.nominate{
+    margin-left: 15px;
+}
+
+#table_PdCargoNomination .NOMINATION_DATE, #table_PdCargoNomination .NOMINATION_QTY,
+#table_PdCargoNomination .NOMINATION_UOM ,#table_PdCargoNomination .NOMINATION_ADJ_TIME   {
+	background-clip: content-box;
+    background-color: #88ff88;
+}
+
+#container_PdContract .dataTables_scrollBody,
+#container_PdContractDetail .dataTables_scrollBody {
+    min-height: 150px;
+}
+
+#savebtn span{
+padding: 2px 16px;
+}
+
+table.dataTable tbody tr.selected,
+table.dataTable.display tbody tr.odd.selected,
+table.dataTable.display tbody tr:hover.selected, 
+table.dataTable.display tbody tr.odd:hover.selected,
+table.dataTable.display tbody tr.even:hover.selected
+{
+	background-clip: content-box;
+	background-color: #b6cfff;
+}
+
+table.dataTable thead .sorting,
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc {
+    text-align: right;
+}
+
+#floatBox table.dataTable thead .sorting,
+#floatBox table.dataTable thead .sorting_asc,
+#floatBox table.dataTable thead .sorting_desc {
+    text-align: left;
+}
+.toolbarAction button{
+	margin-left: 5px;
+}
+
+#table_PdVoyageDetail_containerdiv .dataTables_scrollFoot {
+    position: absolute;
+    /* bottom: 4px; */
+    z-index: -1;
+}
+.withAuto{
+	width: auto;
+}
+#table_PdCargo .n_qty,#table_PdCargo .b_qty {
+	background-clip: content-box;
+    background-color: #ffbbbb;
+}
+#table_PdCargo .flow_qty{
+	background-clip: content-box;
+    background-color: #bbffbb;
+}	
+#table_PdCargo .cal_qty {
+	background-clip: content-box;
+    background-color: #ffff88;
+}	
+
+
+table.dataTable thead .n_qty,table.dataTable thead .b_qty {
+	background-color: #ffbbbb;
+}
+
+table.dataTable thead .flow_qty {
+	background-color: #bbffbb;
+}
+table.dataTable thead .cal_qty {
+	background-color: #ffff88;
+}
+
+table.dataTable thead .BAL_VOL,table.dataTable thead .ADJUST_VOL {
+	background-color: #a8e1f0;
+}
+
+table.dataTable thead .BAL_MASS,table.dataTable thead .ADJUST_MASS {
+	background-color: #FFcc99;
+}
+
+table.dataTable thead .BAL_ENERGY,table.dataTable thead .ADJUST_ENERGY {
+	background-color: #cff4a7;
+}
+
+table.dataTable thead .BAL_POWER,table.dataTable thead .ADJUST_POWER {
+	background-color: #ffff88;
+}
+
+#table_PdLiftingAccountMthData .BAL_VOL, 
+#table_PdLiftingAccountMthData .ADJUST_VOL {
+	background-clip: content-box;
+    background-color: #a8e1f0;
+}  
+
+#table_PdLiftingAccountMthData .BAL_MASS ,
+#table_PdLiftingAccountMthData .ADJUST_MASS  {
+	background-clip: content-box;
+    background-color: #FFcc99;
+}  
+
+
+#table_PdLiftingAccountMthData .BAL_ENERGY  ,
+#table_PdLiftingAccountMthData .ADJUST_ENERGY   {
+	background-clip: content-box;
+    background-color: #cff4a7;
+}  
+
+#table_PdLiftingAccountMthData .BAL_POWER   ,
+#table_PdLiftingAccountMthData .ADJUST_POWER    {
+	background-clip: content-box;
+    background-color: #ffff88;
+}  
+
+#boxHelp strong{
+	font-size:26px;
+}
+#test_log .sql,#test_log .value,#test_log .result{
+	color:blue;
+	font-family:courier new;
+}
+#test_log .error{
+	color:red;
+}
+#test_log .result{
+	font-weight:bold;
+    border-top: 1px dotted gray;
+    margin-top: 6px;
+    padding-top: 6px;
+}
+
+.floatLeft, .filterContainer {
+	float: left;
+}
+.floatRight {
+	float: right;
+}
+.linkViewer{
+    color: #378de5;
+}
+.contenBoxBackground{
+	background-clip: content-box;
+}
+.clickable {
+	cursor: pointer;
+	color: #33b5e8;
+}
+.ListStyleNone {
+    list-style-type: none;
+}
+
+.allocateplan .dataTables_scrollHeadInner,
+.allocateforecast .dataTables_scrollHeadInner,
+ {
+	background-color: #E6E6E6;
+}
+.ui-dialog-titlebar{
+	min-height: 25px;
+}
+
+.editable-event, .input-append input{
+	width:auto;
+	max-width: 120px;
+}
+
+.weekDayLabel {
+	margin-right: 5px;
+}
+
+table.eventTable tbody td {
+    padding: 2px 4px;
+}
+
+input.datePickerInput{
+    max-width: 100px;
+}
+.eventTaskInput{
+    min-width: 200px;
+}
+
+.xclose{
+	margin-left: 7px;
+}
+
+.editable-container.editable-inline {
+    display: table-cell;
+}
+.DataStatus {
+	position: absolute;
+	right: 0;
+	top: -48px;
+	color: white;
+}
+
+.RecordStatus {
+	padding: 7px;
+    background-color: rgb(0, 128, 0);
+}
+.LockStatus {
+    margin-right: 10px;
+    background-image: url("/common/img/locked.png");
+    height: 32px;
+    width: 32px;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: ".";    
+    display: block;    
+    height: 0;    
+    overflow: hidden; 
+}

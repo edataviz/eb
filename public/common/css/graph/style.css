@@ -1,0 +1,26 @@
+.itemx {padding-left:2px;padding-right:2px;border:1px solid #bbbbbb;background:#eeeeee;}
+img.xclose {cursor:pointer;}
+.cbutton{display:block;float:left;height:30px;line-height:30px;font-size:10pt;font-weight:bold;cursor:pointer;padding:0px 10px;border-bottom:1px solid #cccccc;border-right:1px solid #cccccc;}
+.cbutton_active{background:white;color:#3e8ed7;border-bottom:1px solid white}
+.cbutton:hover{color:#3e8ed7}
+.eutest_table{display:none}
+.x_chart_type option {
+background-repeat:no-repeat;
+background-position:bottom left;
+padding-left:30px;
+}
+.x_chart_type option[value="line"] {
+background-image:url(../img/chart_line.png);
+}
+.x_chart_type option[value="spline"] {
+background-image:url(../img/chart_spline.png);
+}
+.x_chart_type option[value="area"] {
+background-image:url(../img/chart_area.png);
+}
+.x_chart_type option[value="areaspline"] {
+background-image:url(../img/chart_splinearea.png);
+}
+.x_chart_type option[value="column"] {
+background-image:url(../img/chart_column.png);
+}

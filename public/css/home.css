@@ -1,0 +1,70 @@
+[box-btn-arrange][arrange] [btn-arrange] {
+	pointer-events: none;
+	background: transparent;
+	border-color: transparent;
+}
+[box-btn-arrange][arrange] [btn-arrange]~* {
+	display: unset;
+}
+[box-btn-arrange] [btn-arrange-done], [box-btn-arrange] [note]  {
+	display: none;
+	margin-right: 20px;
+}
+
+[fav-menu][arrange] [fav-item]:hover {
+	cursor: all-scroll;	
+}
+[fav-menu][arrange] [fav-item]:hover [remove-item] {
+	opacity: 1;
+}
+
+[fav-item] [remove-item] {
+	margin: 5px;
+}
+
+[fav-menu] {
+	height: 100%;
+	padding: 0 10%;
+	display: flex;
+	flex-wrap: wrap;
+    justify-content: center;
+	align-items: center;
+	align-content: center;
+}
+[fav-item], [fav-menu] .ui-sortable-placeholder {
+	display: inline-block;
+	position: relative;
+    width: 150px;
+    text-align: center;
+    margin: 10px;
+    cursor: pointer;
+    padding: 10px 0;
+	border: 1px solid transparent;
+	border-radius: 5px;
+}
+
+[fav-menu][arrange] [fav-item] {
+	border: 1px dashed gray;
+}
+[fav-menu] [fav-item]:hover [fav-icon] {
+	transform: scale(1.1);
+	filter: brightness(130%);
+}
+[fav-icon] {
+	background: green;
+	filter: brightness(100%);
+    width: 120px;
+    height: 120px;
+    line-height: 120px;
+    text-align: center;
+    color: white;
+    font-size: 32pt;
+    border-radius: 100px;
+	display: inline-block;
+	transition: filter .2s, transform .2s;
+}
+[fav-caption] {
+	font-size: 16px;
+	margin-top: 10px;
+	height: 25px;
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html manifest="eb.manifest">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+
+<body onload="">
+<script>
+function login(){
+	var authentication = {username:'tung',password:'tung#3'};
+	authentication.type = "basic";
+  	$.ajax({
+	    url: '/auth/eblogin',
+	    type: "post",
+	    data: authentication,
+	    success: function(data){
+			console.log(data);
+			alert('success');
+	    },
+	    error: function(data) {
+			console.log(data);
+	    }
+  	});
+}
+
+</script>
+<button onclick="login()">Login</button>
+
+</body>
+
+</html>

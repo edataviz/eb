@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-05-11T20:23:47 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b82f8aa0-864d-45cf-a0f6-052c6fb19395">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="GSES Dev 1"/>
+	<parameter name="date_from" class="java.sql.Date"/>
+	<parameter name="date_to" class="java.sql.Date"/>
+	<parameter name="well" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+a.occur_Date,
+a.EU_id,
+
+
+
+b.choke_setting/100,
+b.active_hrs,
+
+(select fc.eu_data_grs_vol FROM ENERGY_UNIT_DATA_FORECAST FC WHERE A.EU_ID=FC.EU_ID AND A.OCCUR_DATE=FC.OCCUR_DATE AND A.EVENT_TYPE=FC.EVENT_TYPE AND A.FLOW_PHASE=FC.FLOW_PHASE AND FC.FORECAST_TYPE=5) as FC_EPP_OIL,
+(select fc.eu_data_grs_vol FROM ENERGY_UNIT_DATA_FORECAST FC WHERE A.EU_ID=FC.EU_ID AND A.OCCUR_DATE=FC.OCCUR_DATE AND A.EVENT_TYPE=FC.EVENT_TYPE AND A.FLOW_PHASE=FC.FLOW_PHASE AND FC.FORECAST_TYPE=8) as FC_BPT_OIL,
+(select COALESCE(sum(OVR_DEFER_OIL_VOL),0) from deferment ls where ls.defer_target=a.eu_id and a.occur_date >= date(ls.begin_time) and a.occur_date <= date(ls.end_time) and a.flow_phase=1) as loss,
+(select (select name from CODE_DEFER_CODE1 cd where ls.code1=cd.id) from deferment ls where ls.defer_target=a.eu_id and a.occur_date >= date(ls.begin_time) and a.occur_date <= date(ls.end_time) and a.flow_phase=1) as Code1,
+(select (select name from CODE_DEFER_CODE2 cd where ls.code1=cd.id) from deferment ls where ls.defer_target=a.eu_id and a.occur_date >= date(ls.begin_time) and a.occur_date <= date(ls.end_time) and a.flow_phase=1) as Code2,
+(select IF (defer_reason= 1,'Planned' , 'Unplanned') from deferment ls where ls.defer_target=a.eu_id and a.occur_date >= date(ls.begin_time) and a.occur_date <= date(ls.end_time) and a.flow_phase=1) as planned,
+IF (A.FLOW_PHASE=1 , round(c.eu_data_grs_vol ,0),0) as OIL_THEOR,
+IF (A.FLOW_PHASE=1 , round(a.eu_data_grs_vol ,0),0) as OIL_ALLOC,
+
+IF (A.FLOW_PHASE=2 , round(c.eu_data_grs_vol ,0),0) as GAS_THEOR,
+IF (A.FLOW_PHASE=2 , round(a.eu_data_grs_vol ,0),0) as GAS_ALLOC,
+
+IF (A.FLOW_PHASE=3 , round(c.eu_data_grs_vol ,0),0) as WAT_THEOR,
+IF (A.FLOW_PHASE=3 , round(a.eu_data_grs_vol ,0),0) as WAT_ALLOC
+
+
+FROM
+
+ENERGY_UNIT_DATA_ALLOC A,
+energy_unit_data_fdc_value B,
+energy_unit_data_theor C
+
+WHERE
+a.eu_id=b.eu_id and a.occur_Date=b.occur_date and a.event_type=b.event_type and a.flow_phase=b.flow_phase
+AND a.eu_id=c.eu_id and a.occur_Date=c.occur_date and a.event_type=c.event_type and a.flow_phase=c.flow_phase
+AND a.alloc_type=1 and a.flow_phase=1
+
+AND A.OCCUR_DATE between  $P{date_from} and  $P{date_to} 
+and a.eu_id= $P{well} ]]>
+	</queryString>
+	<field name="occur_Date" class="java.sql.Date"/>
+	<field name="EU_id" class="java.lang.Integer"/>
+	<field name="b.choke_setting/100" class="java.lang.Double"/>
+	<field name="active_hrs" class="java.lang.Double"/>
+	<field name="FC_EPP_OIL" class="java.lang.Double"/>
+	<field name="FC_BPT_OIL" class="java.lang.Double"/>
+	<field name="loss" class="java.lang.Double"/>
+	<field name="Code1" class="java.lang.String"/>
+	<field name="Code2" class="java.lang.String"/>
+	<field name="planned" class="java.lang.String"/>
+	<field name="OIL_THEOR" class="java.lang.Double"/>
+	<field name="OIL_ALLOC" class="java.lang.Double"/>
+	<field name="GAS_THEOR" class="java.lang.Double"/>
+	<field name="GAS_ALLOC" class="java.lang.Double"/>
+	<field name="WAT_THEOR" class="java.lang.Double"/>
+	<field name="WAT_ALLOC" class="java.lang.Double"/>
+	<variable name="sum_hrs" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{active_hrs}]]></variableExpression>
+	</variable>
+	<variable name="SUM_EPP" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{FC_EPP_OIL}]]></variableExpression>
+	</variable>
+	<variable name="sum_BPT" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{FC_BPT_OIL}]]></variableExpression>
+	</variable>
+	<variable name="sum_lost" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{loss}]]></variableExpression>
+	</variable>
+	<variable name="sum_alloc" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{OIL_ALLOC}]]></variableExpression>
+	</variable>
+	<variable name="avg_hrs" class="java.lang.Double" calculation="Average">
+		<variableExpression><![CDATA[$F{active_hrs}]]></variableExpression>
+	</variable>
+	<variable name="avg_epp" class="java.lang.Double" calculation="Average">
+		<variableExpression><![CDATA[$F{FC_EPP_OIL}]]></variableExpression>
+	</variable>
+	<variable name="avg_bpt" class="java.lang.Double" calculation="Average">
+		<variableExpression><![CDATA[$F{FC_BPT_OIL}]]></variableExpression>
+	</variable>
+	<variable name="avg_loss" class="java.lang.Double" calculation="Average">
+		<variableExpression><![CDATA[$F{loss}]]></variableExpression>
+	</variable>
+	<variable name="avg_alloc" class="java.lang.Double" calculation="Average">
+		<variableExpression><![CDATA[$F{OIL_ALLOC}]]></variableExpression>
+	</variable>
+	<variable name="avg_pe" class="java.lang.Double" calculation="Average">
+		<variableExpression><![CDATA[$F{OIL_ALLOC}/($F{FC_BPT_OIL})
+]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="80" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="25" width="550" height="20" uuid="44f0cb77-6131-4440-9a00-9dda582a3904"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Daily Total Well Production Report"]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="70" height="80" uuid="198789b4-e40e-45de-a12c-672a625fc196"/>
+				<imageExpression><![CDATA["http://res.cloudinary.com/hrscywv4p/image/upload/c_limit,fl_lossy,h_1440,w_720,f_auto,q_auto/v1/208829/m7flstmftvf1hznbumit.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField>
+				<reportElement x="70" y="30" width="30" height="10" uuid="c4b53710-6a21-43d1-928c-8c4fce11c98e"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Choke"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="30" width="40" height="10" uuid="9d8872f5-685e-4005-bd09-56036a99da18"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Hrs Online"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="30" width="50" height="10" uuid="01ca5cce-0d38-4661-b056-54d56a84ee67"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["EPP"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="30" width="50" height="10" uuid="2847f549-0878-4ced-9657-072f81dbadab"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Target"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="30" width="50" height="10" uuid="acd3cf86-a2e6-46a4-aa1c-e812b88c587a"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Lost"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="30" width="50" height="10" uuid="efad283f-cf51-4d1d-b8ba-15109ee9406c"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Allocated"
+]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="30" width="40" height="10" uuid="a39d39aa-cbd1-482b-bb4f-bd9f27db7a6f"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PE"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="30" width="70" height="10" uuid="b096a866-b3ab-4f46-acf8-7a3047b3b43f"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Production Day"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="0" width="70" height="10" uuid="9095e8bf-e9e1-4828-8e8f-c080f2302af3"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Well Name:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="470" y="0" width="80" height="10" uuid="cbb4408e-ccde-47e4-849e-02200040683a"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EU_id}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="10" splitType="Stretch">
+			<textField pattern="#,##0%">
+				<reportElement x="70" y="0" width="30" height="10" uuid="78bd6010-63e9-4ca7-8e0d-fb0cf1d48945"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{b.choke_setting/100}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="40" height="10" uuid="9e8429f7-4465-4bd2-9e9b-29e5c64e37b4"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{active_hrs}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="140" y="0" width="50" height="10" uuid="11c64912-2675-403b-841b-2b61e1e4a987"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FC_EPP_OIL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="190" y="0" width="50" height="10" uuid="91440759-3cce-4942-8def-ef8acc5021df"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FC_BPT_OIL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="240" y="0" width="50" height="10" uuid="78936761-4a68-4f64-a7e3-89abf19a64fd"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{loss}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="290" y="0" width="50" height="10" uuid="ab96d89d-291f-4354-abba-27a0b697f74b"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OIL_ALLOC}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.##%">
+				<reportElement x="340" y="0" width="40" height="10" uuid="256622bd-0961-4205-9b16-5b99f862cb6b"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OIL_ALLOC}/($F{FC_BPT_OIL})
+]]></textFieldExpression>
+			</textField>
+			<textField pattern="M/d/yy">
+				<reportElement x="0" y="0" width="70" height="10" uuid="0e09fc15-8240-431e-9e0e-7b6a689b416f"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{occur_Date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="100" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<textField>
+				<reportElement x="100" y="50" width="40" height="10" uuid="98d03a8b-9252-4664-8df2-76adaefc9332"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{avg_hrs}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="140" y="40" width="50" height="10" uuid="34244ef4-c3dc-4251-8be0-656ec3631d05"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SUM_EPP}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="190" y="40" width="50" height="10" uuid="3f949a6b-b502-4ef2-b172-4e83750cfb39"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sum_BPT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="240" y="40" width="50" height="10" uuid="751f6e25-d030-4c17-bf83-c1528ab00927"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sum_lost}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="290" y="40" width="50" height="10" uuid="957e8a5b-90f4-4864-a0d6-91433d48d198"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{sum_alloc}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.##%">
+				<reportElement x="340" y="50" width="40" height="10" uuid="14a40bae-c62c-4674-ac30-c35a785f3a65"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{avg_pe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="40" width="60" height="10" uuid="76e7f6fb-263c-42c3-a301-dba2426c7fe0"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Total:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="30" width="40" height="10" uuid="3f7080cb-8410-4cb3-8298-3e4802a4ff64"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Hrs Online"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="140" y="30" width="50" height="10" uuid="5498c8c4-fac5-4e29-838b-28d86720027e"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["EPP"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="30" width="50" height="10" uuid="be4219cb-5bc5-4214-a86d-4b197be2b9a1"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Target"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="30" width="50" height="10" uuid="08cf14af-5527-4e9a-9b99-bb26ceac77c4"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Lost"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="30" width="50" height="10" uuid="50cc8d3d-b88c-4cbb-bcb3-b61c1a509642"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Allocated"
+]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="30" width="40" height="10" uuid="6602f6ae-66d5-408d-9d12-2db1aed76ed5"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PE"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="50" width="60" height="10" uuid="e0d6288b-bb29-4f16-9ce0-d4edbcb74898"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Average:"]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="140" y="50" width="50" height="10" uuid="8a613381-b301-4047-befc-3cfbcebe39a5"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{avg_epp}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="190" y="50" width="50" height="10" uuid="12a8c4f0-2cd7-4c7e-a8b2-3481ed61413d"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{avg_bpt}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="240" y="50" width="50" height="10" uuid="a332e561-c3c2-4c76-8418-1e751545052a"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{avg_loss}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement x="290" y="50" width="50" height="10" uuid="80905f33-92a8-4947-8ef4-b10381c44a65"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{avg_alloc}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.##%">
+				<reportElement x="340" y="40" width="40" height="10" uuid="96697ebd-70e7-4cb4-90ba-663bb12eb69d"/>
+				<box leftPadding="1" rightPadding="1">
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="11" splitType="Stretch">
+			<textField>
+				<reportElement x="-10" y="0" width="40" height="11" uuid="5b3f7d54-2dbb-44fe-843e-40eee51019ab"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="30" y="0" width="40" height="11" uuid="6cf392d9-76b8-4d5f-84da-4c5e40eebfc1"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" of " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="0" width="74" height="11" uuid="711985a0-482e-40cd-ad6c-e2dc6fa4b85a"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Run Time Report: "]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd MMMM yyyy - H:mm:ss">
+				<reportElement x="250" y="0" width="120" height="11" uuid="4df19273-0100-4dd1-9025-3b9af3776600"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="527" y="0" width="33" height="11" uuid="c9159e60-9b66-4b59-948c-5dc153d92644"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Paraph:"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+		</band>
+	</summary>
+</jasperReport>

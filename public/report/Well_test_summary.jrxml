@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2015-08-09T20:42:42 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Well_test_summary" pageWidth="1750" pageHeight="842" orientation="Landscape" columnWidth="1710" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="78a79220-3f60-4c18-918e-f9da66f65054">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter 1"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<parameter name="begin_date" class="java.util.Date"/>
+	<parameter name="end_date" class="java.util.Date"/>
+	<parameter name="facility_id" class="java.lang.Integer"/>
+	<parameter name="ROOT_DIR" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT facility.NAME facility_name, lo_area.NAME area_name
+FROM facility, lo_area
+WHERE facility.AREA_ID=lo_area.ID
+	AND facility.ID=$P{facility_id}]]>
+	</queryString>
+	<field name="facility_name" class="java.lang.String"/>
+	<field name="area_name" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="219" splitType="Stretch">
+			<property name="local_mesure_unitheight" value="pixel"/>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="26" y="137" width="100" height="20" uuid="e5f65273-349e-49c6-bd33-7602ce23d37f"/>
+				<text><![CDATA[End Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="196" width="100" height="20" uuid="2eb3eb3f-43fe-47de-a280-686b54cb8d05"/>
+				<text><![CDATA[Run Datetime:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="177" width="100" height="20" uuid="6499a9ae-ad8d-4ed5-9ff3-4863fa290854"/>
+				<text><![CDATA[Units of Measure:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="118" width="100" height="20" uuid="9a022561-c351-4031-9527-c4bc63618cad"/>
+				<text><![CDATA[Begin Date:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="149" y="79" width="100" height="20" uuid="3986dfef-82d1-4a7d-a21e-1244a326d788"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{facility_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="16" y="30" width="324" height="40" uuid="19ecda70-180a-460b-8077-65dc574fede6">
+					<property name="local_mesure_unitheight" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement>
+					<font fontName="SansSerif" size="26"/>
+				</textElement>
+				<text><![CDATA[Welltest summary]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="149" y="177" width="100" height="20" uuid="6ec3eedd-5f40-4608-968e-6c5036933046"/>
+				<textElement>
+					<font fontName="SansSerif" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Sl"]]></textFieldExpression>
+			</textField>
+			<textField pattern="MM/dd/yyyy HH:mm">
+				<reportElement x="149" y="196" width="100" height="20" uuid="01b203fb-559c-4469-b2d3-45c3d2ba7f59"/>
+				<textElement>
+					<font fontName="SansSerif" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="149" y="99" width="100" height="20" uuid="aeae75dc-b382-4d85-a487-60fb2957644f"/>
+				<textFieldExpression><![CDATA[$F{area_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="26" y="99" width="100" height="20" uuid="9188d3b3-e8e6-4d24-8304-c69454cb6bea"/>
+				<text><![CDATA[Area:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="79" width="100" height="20" uuid="30911e82-d308-481f-a493-5c7457469125"/>
+				<textElement>
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Facility:]]></text>
+			</staticText>
+			<textField pattern="MM/dd/yyyy">
+				<reportElement x="149" y="118" width="100" height="20" uuid="2f9ee334-5d49-4738-b475-385470e51a4b"/>
+				<textFieldExpression><![CDATA[$P{begin_date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="26" y="157" width="123" height="20" uuid="d0d1a7e1-878a-4f52-bc04-0eb0357a1305"/>
+				<text><![CDATA[Last Alloc or All in Range:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="149" y="157" width="100" height="20" uuid="d6e92f5c-2d33-4faf-8e78-7d3a6dbb8332"/>
+				<textElement>
+					<font fontName="SansSerif" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["All in Range"]]></textFieldExpression>
+			</textField>
+			<textField pattern="MM/dd/yyyy">
+				<reportElement x="149" y="137" width="100" height="20" uuid="03163b2c-9596-4c4e-8664-4152832cd53f"/>
+				<textFieldExpression><![CDATA[$P{end_date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="203" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="1660" height="200" uuid="251e32bb-d1b7-454e-8507-0676496eff3a"/>
+				<subreportParameter name="startTime">
+					<subreportParameterExpression><![CDATA[$P{begin_date}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="endTime">
+					<subreportParameterExpression><![CDATA[$P{end_date}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="facility_id">
+					<subreportParameterExpression><![CDATA[$P{facility_id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{ROOT_DIR}+"\\Sub_well_test_summary.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="17" splitType="Stretch"/>
+	</summary>
+</jasperReport>
