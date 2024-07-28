@@ -1,9 +1,14 @@
 <?php
-$domain = "energybuilder.co";
+$domain = env('DOMAIN', 'energybuilder.co');
 $defaultTenant = "default";
 $tenant = $defaultTenant;
 $tenant_dbs = [
-	'default' 		=> ['driver' => 'mysql', 	'database' => 'tenant1',		'username' => 't1',				'password' => '0OprFzaKERryX3ip'],
+	'default' => [
+		'driver' => env('DB_TYPE', 'mysql'),
+		'database' => env('DB_SCHEMA', 'eb'),
+		'username'=> env('DB_USERNAME', 'eb'),
+		'password' => env('DB_PASSWORD', ''),
+	],
 ];
 if (!array_key_exists($tenant,$tenant_dbs)){
 	echo("Tenant not found ($tenant)");
