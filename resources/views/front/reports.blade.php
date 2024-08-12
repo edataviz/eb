@@ -313,8 +313,8 @@ var _report = {
 		if(error)
 			return;
 		//var url = _report.host+'/report/viewreport.php?export='+pexport+'&file='+file+params;
-		//var url = _report.host+'/genreport/export='+pexport+'&file='+file+params;
-		var url = _report.host+(pexport=='XML'||pexport=='CSV'?'/genreport/':'/report/viewreport.php?')+'export='+pexport+'&file='+file+params;
+		var url = _report.host+'/genreport/export='+pexport+'&file='+file+params;
+		//var url = _report.host+(pexport=='XML'||pexport=='CSV'?'/genreport/':'/report/viewreport.php?')+'export='+pexport+'&file='+file+params;
 		window.open(url, '_blank');
 	},
 }
