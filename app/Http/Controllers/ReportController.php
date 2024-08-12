@@ -770,7 +770,9 @@ class ReportController extends EBController {
 				$connection = java ( "java.sql.DriverManager" )->getConnection ( "jdbc:mysql://{$conn['host']}/{$conn['database']}", $conn['username'], $conn['password'] );
 			}
 
-			$report = java ( "net.sf.jasperreports.engine.JasperCompileManager" )->compileReport ( $in );
+			$compileManager = java ( "net.sf.jasperreports.engine.JasperCompileManager" );
+			$compileManager->__client->cancelProxyCreationTag = 0;
+			$report = $compileManager->compileReport ( $in );
 			
 			$dateFormat = new \java ( "java.text.SimpleDateFormat", "yy-MM-dd" );
 			$params = new \java ( "java.util.HashMap" );
@@ -871,7 +873,9 @@ class ReportController extends EBController {
 		$in = $root . "\\{$report_file}.jrxml";
 
 		$sqls = [];
-		$report = java ( "net.sf.jasperreports.engine.JasperCompileManager" )->compileReport ( $in );
+		$compileManager = java ( "net.sf.jasperreports.engine.JasperCompileManager" );
+		$compileManager->__client->cancelProxyCreationTag = 0;
+		$report = $compileManager->compileReport ( $in );
 		$sql = $report->getQuery()->getText();
 		$sqls[] = $sql;
 
